@@ -18,6 +18,13 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            
+            // Agregamos la columna para la clave foránea
+            $table->foreignId('tipo_user_id')
+                  ->default(1) // Establece el valor predeterminado como 1
+                  ->constrained('tipo_users') // Define la relación con la tabla 'tipo_users'
+                  ->onDelete('cascade'); 
+
             $table->timestamps();
         });
 
