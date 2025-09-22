@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,18 +12,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_rol')
+                ->default(1) // Establece el valor predeterminado como 1
+                ->constrained('roles');
+          
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            
-            // Agregamos la columna para la clave foránea
-            $table->foreignId('tipo_user_id')
-                  ->default(1) // Establece el valor predeterminado como 1
-                  ->constrained('tipo_users') // Define la relación con la tabla 'tipo_users'
-                  ->onDelete('cascade'); 
-
             $table->timestamps();
         });
 
@@ -42,6 +38,7 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
     }
 
     /**
@@ -49,8 +46,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('usuarios');
     }
 };

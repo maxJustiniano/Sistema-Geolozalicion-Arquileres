@@ -22,7 +22,7 @@ class CheckUserType
 
         $user = Auth::user();
 
-        if (in_array($user->tipo_user_id, $types)) {
+        if (in_array($user->id_rol, $types)) {
             return $next($request);
         }
 

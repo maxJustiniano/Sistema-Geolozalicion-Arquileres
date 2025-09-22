@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-//------------ Rutas Login ----------
+//------------------------ Rutas Login y register ------------------------
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -11,10 +11,14 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 
 
+//---------------------------- Rutas publicas ----------------------------
+
 Route::get('/dashboard', function () {
     // Solo los usuarios autenticados pueden acceder
     return view('welcome');
 });
+
+//----------------------------- Rutas privadas -----------------------------
 
 // Grupo de rutas protegidas para usuarios autenticados
 Route::middleware('auth')->group(function () {
