@@ -62,7 +62,7 @@
 
         <div class="filter-card">
             <div class="filter-group">
-                <label><i class="fas fa-star"></i> Amenidades:</label>
+                <label><i class="fas fa-star"></i> Filtro:</label>
                 <label class="checkbox-label"><input type="checkbox" id="hasPatio"> <i class="fas fa-tree"></i> Patio</label>
                 <label class="checkbox-label"><input type="checkbox" id="hasAmueblado"> <i class="fas fa-couch"></i> Amueblado</label>
                 <label class="checkbox-label"><input type="checkbox" id="hasParking"> <i class="fas fa-car"></i> Estacionamiento</label>
