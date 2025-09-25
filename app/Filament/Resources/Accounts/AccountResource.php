@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Filament\Resources\Accounts;
+
+use App\Filament\Resources\Accounts\Pages\CreateAccount;
+use App\Filament\Resources\Accounts\Pages\EditAccount;
+use App\Filament\Resources\Accounts\Pages\ListAccounts;
+use App\Filament\Resources\Accounts\Schemas\AccountForm;
+use App\Filament\Resources\Accounts\Tables\AccountsTable;
+use App\Models\Usuario;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
+
+class AccountResource extends Resource
+{
+    protected static ?string $model = Usuario::class;
+
+    protected static string|\BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static ?string $recordTitleAttribute = 'nombre';
+
+    public static function form(Schema $schema): Schema
+    {
+        return AccountForm::form($schema);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return AccountsTable::configure($table);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListAccounts::route('/'),
+            'create' => CreateAccount::route('/create'),
+            'edit' => EditAccount::route('/{record}/edit'),
+        ];
+    }
+}
