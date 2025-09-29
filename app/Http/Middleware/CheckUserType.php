@@ -26,6 +26,11 @@ class CheckUserType
             return $next($request);
         }
 
-        return redirect('/')->with('error', 'No tienes permiso para acceder a esta página.');
+        return redirect('/error403')->with([
+            'error-code'   => 403,
+            'error-message'   => 'Lo sentimos, no tienes permisos para acceder a esta página.',
+            'error-details1'  => 'Es posible que necesites iniciar sesión o que tu cuenta no tenga los privilegios necesarios para ver este contenido.',
+            'error-details2'  => 'Si crees que esto es un error, por favor contacta al administrador del sistema.'
+        ]);
     }
 }

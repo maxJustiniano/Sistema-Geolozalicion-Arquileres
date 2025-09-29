@@ -24,6 +24,10 @@ Route::get('/dashboard', function () {
 
 // Grupo de rutas protegidas para usuarios autenticados
 Route::middleware('auth')->group(function () {
+
+    Route::get('/error403', function () {
+            return view('auth.error403');
+        });
     
     // Rutas para usuarios con tipo_user_id = 1 (simple)
     Route::middleware('check_user_type:1')->group(function () {
