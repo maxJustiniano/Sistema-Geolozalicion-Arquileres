@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->foreignId('id_rol')
                 ->default(1) // Establece el valor predeterminado como 1
                 ->constrained('roles');
-          
+
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -38,7 +38,6 @@ return new class extends Migration {
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-
     }
 
     /**
@@ -46,6 +45,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('usuarios');
+        Schema::dropIfExists('users');
     }
 };
