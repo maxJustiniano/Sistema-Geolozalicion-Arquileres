@@ -6,20 +6,34 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <x-datatable 
-            id="propiedades-table" 
-            title="Propiedades" 
-            :columns="['ID', 'Título', 'Dirección', 'Estado']"
-        >
-            @foreach ($propiedades as $propiedad)
-                <tr>
-                    <td>{{ $propiedad->id }}</td>
-                    <td>{{ $propiedad->titulo }}</td>
-                    <td>{{ $propiedad->direccion }}</td>
-                    <td>{{ $propiedad->estado }}</td>
-                </tr>
-            @endforeach
-        </x-datatable>
+        <x-datatable  
+    id="propiedades-table"  
+    title="Propiedades"  
+    class="table table-bordered table-hover table-striped"
+    :columns="['ID', 'Título', 'Dirección', 'Estado', 'Acciones']"
+>
+    @foreach ($propiedades as $propiedad)
+        <tr>
+            <td>{{ $propiedad->id }}</td>
+            <td>{{ $propiedad->titulo }}</td>
+            <td>{{ $propiedad->direccion }}</td>
+            <td>{{ $propiedad->estado }}</td>
+            <td>
+                <a href="" class="btn btn-sm btn-primary">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <form action="" method="POST" style="display:inline-block;" onsubmit="return confirm('¿Eliminar esta propiedad?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    @endforeach
+</x-datatable>
+
     </div>
 </div>
 @endsection
