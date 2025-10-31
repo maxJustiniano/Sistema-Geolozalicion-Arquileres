@@ -7,6 +7,14 @@ use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
+Route::get('/error404', function () {
+    return view('components/layouts/app/error404');
+});
+
+Route::get('/home', function () {
+    return view('home');
+});
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
