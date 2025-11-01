@@ -8,9 +8,8 @@
     <title>{{ $title ?? 'Propia - Login & Registro' }}</title> 
     
     {{-- Tus scripts y CSS --}}
-    <script src="/_sdk/element_sdk.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('build/assets/css/login-register.css') }}">
+    @vite(['resources/css/auth.css'])
     
     {{-- Incluye tu cabecera parcial --}}
     @include('partials.head')
@@ -27,7 +26,7 @@
             <div class="bg-card-custom rounded-xl card-shadow overflow-hidden w-full lg:flex lg:w-full">
                 
                 <div class="relative hidden lg:block lg:w-1/2 lg:h-auto bg-cover bg-center"
-                    style="background-image: url('{{ asset('build/assets/img/icono-auth.jpeg') }}');">
+                    style="background-image: url('{{ Vite::asset('resources/img/ejem-sistem-auth.jpeg') }}');">
                     
                     {{-- Overlay y contenido de la imagen (mantener blanco en el Split) --}}
                     <div class="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -50,7 +49,7 @@
 
 
                     <div class="relative h-56 bg-cover bg-center lg:hidden" 
-                        style="background-image: url('{{ asset('build/assets/img/icono-auth.jpeg') }}');">
+                        style="background-image: url('{{ Vite::asset('resources/img/ejem-sistem-auth.jpeg') }}');">
                         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
                         <div
                             class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-6">

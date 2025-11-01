@@ -1,0 +1,106 @@
+    /*
+|--------------------------------------------------------------------------
+| CSS Base y Fuentes (Mantener)
+|--------------------------------------------------------------------------
+| box-sizing ya es el valor predeterminado en Tailwind.
+| Mantenemos la importación y la fuente 'Inter' ya que Tailwind no la define.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* {
+    /* Tailwind ya maneja el font-family con la directiva @layer base */
+    /* Pero puedes forzar 'Inter' si lo necesitas: */
+    font-family: 'Inter', sans-serif;
+}
+
+/* |--------------------------------------------------------------------------
+| Colores y Elementos Esenciales (Mantener solo las definiciones de color)
+|--------------------------------------------------------------------------
+| Estas clases son necesarias para definir tus colores personalizados.
+| Luego, usarás bg-gradient-custom, text-primary-custom, etc. en tu HTML.
+|
+| NOTA: Si usas Tailwind v3+, es ALTAMENTE recomendable mover estas 
+| definiciones a tu archivo tailwind.config.js bajo 'extend.colors'.
+*/
+
+/* 🌑 FONDO PRINCIPAL OSCURO (bg-gradient-custom) */
+.bg-gradient-custom {
+    /* Equivalente: linear-gradient(135deg, #18181b 0%, #1f1f21 100%); */
+    background: linear-gradient(135deg, #18181b 0%, #1f1f21 100%); 
+}
+
+/* 💳 FONDO DE TARJETA (bg-card-custom) */
+.bg-card-custom {
+    /* Equivalente: #27272a */
+    background: #27272a; 
+}
+
+/* ✏️ TEXTOS PRIMARIOS (text-primary-custom) */
+.text-primary-custom {
+    /* Equivalente: text-white */
+    color: #ffffff; 
+}
+
+/* 💬 TEXTOS SECUNDARIOS (text-secondary-custom) */
+.text-secondary-custom {
+    /* Equivalente: text-zinc-400 */
+    color: #a1a1aa; 
+}
+
+/* 🖼️ BORDES Y SEPARADORES (border-custom) */
+.border-custom {
+    /* Equivalente: border-zinc-600 */
+    border-color: #3f3f46; 
+}
+
+/* 🟦 COLOR AZUL DE ACENTO (Aseguramos el color base) */
+.bg-blue-custom {
+    background-color: #4A90E2;
+}
+
+/* 💍 COLOR TERRACOTA/AZUL PARA ENLACES (text-terracotta-custom) */
+.text-terracotta-custom {
+    color: #4A90E2; 
+}
+
+/* -------------------------------------------------------------------------- */
+/* CLASES DE BOTONES/INPUTS (SIMPLIFICADAS)   */
+/* -------------------------------------------------------------------------- */
+
+/* 🎯 BOTONES PRINCIPALES (btn-primary-custom) */
+.btn-primary-custom {
+    /* Mantener solo la transición y hover si no usas ring/shadow */
+    background-color: #3A7BC8 !important;
+    transition: all 0.2s ease;
+    /* La clase text-white ahora se aplica directamente en el HTML */
+}
+
+/* 🎯 BOTONES PRINCIPALES (btn-primary-custom) */
+.btn-primary-custom {
+    background-color: #1e90ff !important; /* Base azul estándar */
+    transition: all 0.2s ease;
+}
+
+.btn-primary-custom:hover {
+    /* Un azul ligeramente más oscuro al hacer hover */
+    background-color: #187bcd !important; 
+    transform: translateY(-1px);
+}
+
+.btn-secondary-custom:hover {
+    /* Un gris más oscuro al hacer hover */
+    background-color: #3f3f46; 
+}
+
+/* 🖼️ ILUSTRACIÓN (illustration-bg) */
+.illustration-bg {
+    /* Mantenemos el gradiente original */
+    background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%); 
+}
+
+/* 🖤 SOMBRA DE LA TARJETA (card-shadow) */
+.card-shadow {
+    /* Mantener sombra custom, es difícil de replicar exactamente con las utilidades de Tailwind */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}

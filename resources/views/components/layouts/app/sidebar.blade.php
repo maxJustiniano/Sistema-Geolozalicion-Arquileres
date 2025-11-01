@@ -19,14 +19,14 @@
 
             <flux:sidebar.nav>
             <flux:sidebar.item icon="map" href="#">Mapa</flux:sidebar.item>
-            <flux:sidebar.group expandable :expanded="false" icon="users" heading="Gestion de Sesiones" class="grid">
+            <flux:sidebar.group expandable :expanded="false" icon="users" heading="Gestion de Usuarios" class="grid">
                 <flux:navlist.item icon="user" href="#">Usuarios</flux:navlist.item>
                 <flux:navlist.item icon="user-group" href="#">Personas</flux:navlist.item>
             </flux:sidebar.group>
             <flux:sidebar.group expandable :expanded="false" icon="home" heading="Propiedades" class="grid">
-                <flux:navlist.item icon="home-modern" href="#">Tipos de Propiedades</flux:navlist.item>
                 <flux:navlist.item icon="user-group" href="#">Propietarios</flux:navlist.item>
-                <flux:navlist.item icon="clipboard-document-list" href="#">Lista de Propiedades</flux:navlist.item>
+                <flux:navlist.item icon="clipboard-document-list" href="#">Propiedades</flux:navlist.item>
+                <flux:navlist.item icon="home-modern" href="#">Tipos de Propiedades</flux:navlist.item>
             </flux:sidebar.group>
         </flux:sidebar.nav>
            
