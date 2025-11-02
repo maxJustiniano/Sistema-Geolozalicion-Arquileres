@@ -74,4 +74,8 @@ Route::middleware(['auth'])->group(function () {
         return view('roles.index');
     })->name('roles');
 
+    Route::get('/create', function () {
+        return view('roles.create');
+    })->name('create');
+
 });

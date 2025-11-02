@@ -19,9 +19,9 @@
 
             <flux:sidebar.nav>
             <flux:sidebar.item icon="map" href="#">Mapa</flux:sidebar.item>
-            <flux:sidebar.group expandable :expanded="false" icon="users" heading="Gestion de Usuarios" class="grid">
-                <flux:navlist.item icon="user-group" :href="route('usuarios')" wire:navigate >Usuarios</flux:navlist.item>
-                <flux:navlist.item icon="user-group" :href="route('roles')" wire:navigate >Tipo Usuarios</flux:navlist.item>
+            <flux:sidebar.group expandable :expanded="request()->routeIs('usuarios') || request()->routeIs('roles')" icon="user" heading="Gestion de Usuarios" class="grid">
+                <flux:navlist.item icon="users" :href="route('usuarios')" :current="request()->routeIs('usuarios')" wire:navigate >Usuarios</flux:navlist.item>
+                <flux:navlist.item icon="user-group" :href="route('roles')" :current="request()->routeIs('roles')" wire:navigate >Tipo Usuarios</flux:navlist.item>
             </flux:sidebar.group>
             <flux:sidebar.group expandable :expanded="false" icon="home" heading="Propiedades" class="grid">
                 <flux:navlist.item icon="user-group" href="#">Propietarios</flux:navlist.item>
