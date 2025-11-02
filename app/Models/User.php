@@ -2,7 +2,7 @@
 
 namespace App\Models;
 use App\Models\IdentidadUsuario\Persona;
-use App\Models\IdentidadUsuario\Rol;
+use App\Models\IdentidadUsuario\Role;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -69,7 +69,7 @@ class User extends Authenticatable
 
     public function rol()
     {
-        return $this->belongsTo(Rol::class, 'id_rol');
+        return $this->belongsTo(Role::class, 'id_rol');
     }
 
     public function persona()

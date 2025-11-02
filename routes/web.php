@@ -1,5 +1,6 @@
 <?php
 
+//Use predefinidos de livewire
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -7,16 +8,14 @@ use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
-Route::get('/error404', function () {
-    return view('components/layouts/app/error404');
-});
+//Use de rutas personalizadas
+use App\Http\Controllers\Auth\registerController; //Controlador del register
 
-Route::get('/home', function () {
-    return view('home');
-});
+
+//Routes predefinidos de livewire
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+});
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -41,14 +40,38 @@ Route::middleware(['auth'])->group(function () {
         ->name('two-factor.show');
 });
 
+//Rutas de Estaticas Personalizadas (Home y error)
+Route::get('/error404', function () {
+    return view('errors/404');
+})->name('error404');
 
-use App\Http\Controllers\Auth\registerController; 
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
 
-// Ruta GET para mostrar el formulario
+
+//Rutas de Registro Personalizadas (Auth)
+
+// Ruta GET para mostrar el formulario de registro
 Route::get('/register', [registerController::class, 'create'])
     ->middleware('guest');
 
-// Ruta POST para procesar el formulario
+// Ruta POST para procesar el envío del formulario y registrar al usuario
 Route::post('/register', [registerController::class, 'store'])
     ->middleware('guest')
     ->name('register');
+
+
+//Rutas de Crud personas Personalizadas
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/personas', function () {
+        return view('personas.index');
+    })->name('personas');
+
+    Route::get('/roles', function () {
+        return view('roles.index');
+    })->name('roles');
+
+});
