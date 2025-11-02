@@ -66,9 +66,9 @@ Route::post('/register', [registerController::class, 'store'])
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/personas', function () {
-        return view('personas.index');
-    })->name('personas');
+    Route::get('/usuarios', function () {
+        return view('usuarios.index');
+    })->name('usuarios');
 
     Route::get('/roles', function () {
         return view('roles.index');
