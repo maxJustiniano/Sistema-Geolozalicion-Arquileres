@@ -40,3 +40,15 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 });
+
+
+use App\Http\Controllers\Auth\registerController; 
+
+// Ruta GET para mostrar el formulario
+Route::get('/register', [registerController::class, 'create'])
+    ->middleware('guest');
+
+// Ruta POST para procesar el formulario
+Route::post('/register', [registerController::class, 'store'])
+    ->middleware('guest')
+    ->name('register');

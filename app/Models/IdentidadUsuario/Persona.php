@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Models\Usuarios;
-
+namespace App\Models\IdentidadUsuario;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Persona extends Model
@@ -10,6 +10,7 @@ class Persona extends Model
         'user_id',
         'nombre',
         'apellido',
+        'dni',
         'telefono',
     ];
 

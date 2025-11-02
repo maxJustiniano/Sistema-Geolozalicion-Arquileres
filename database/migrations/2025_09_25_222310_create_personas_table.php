@@ -15,6 +15,7 @@ class CreatePersonasTable extends Migration
             $table->string('apellido', 100);
             $table->string('telefono', 20)->nullable();
             $table->string('dni', 8)->nullable();
+            $table->timestamps(); // created_at y updated_at
         });
     }
 

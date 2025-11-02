@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+use App\Models\IdentidadUsuario\Persona;
+use App\Models\IdentidadUsuario\Rol;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,9 +22,12 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'id_rol',
         'name',
         'email',
         'password',
+        'id_rol',
+        'persona_id'
     ];
 
     /**
@@ -58,7 +63,18 @@ class User extends Authenticatable
         return Str::of($this->name)
             ->explode(' ')
             ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
+            ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'id_rol');
+    }
+
+    public function persona()
+    {
+        return $this->hasOne(Persona::class);
+    }
+
 }

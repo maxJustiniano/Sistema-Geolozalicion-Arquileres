@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Models\Usuarios;
+namespace App\Models\IdentidadUsuario;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Rol extends Model

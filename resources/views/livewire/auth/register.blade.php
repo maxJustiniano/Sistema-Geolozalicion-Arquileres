@@ -12,34 +12,34 @@
 
                 {{-- Campos de Nombre y Apellido: Usando flux:input en grid --}}
                 <div class="grid grid-cols-2 gap-3">
-                    <flux:input name="name" :label="__('Nombre')" type="text" required autofocus
-                        autocomplete="given-name" placeholder="Nombre" maxlength="100" />
+                    <flux:input name="nombre" :label="__('Nombre')" type="text" required autofocus
+                        autocomplete="given-name" placeholder="Nombre" maxlength="100" value="{{ old('nombre') }}" />
 
                     {{-- Nota: Asumimos que tu validación de Laravel espera 'lastName', si no, cámbialo a 'last_name' --}}
-                    <flux:input name="lastName" :label="__('Apellido')" type="text" required
-                        autocomplete="family-name" placeholder="Apellido" maxlength="100" />
+                    <flux:input name="apellido" :label="__('Apellido')" type="text" required
+                        autocomplete="family-name" placeholder="Apellido" maxlength="100" value="{{ old('apellido') }}" />
                 </div>
 
                 {{-- Campo Email --}}
                 <flux:input name="email" :label="__('Email')" type="email" required autocomplete="username"
-                    placeholder="email@ejemplo.com" />
+                    placeholder="email@ejemplo.com" value="{{ old('email') }}" />
 
                 {{-- Campos de Teléfono y DNI: Usando flux:input en grid --}}
                 <div class="grid grid-cols-2 gap-3">
-                    <flux:input name="phone" :label="__('Teléfono')" type="tel" placeholder="+54 11 1234-5678"
-                        maxlength="20" />
+                    <flux:input name="telefono" :label="__('Teléfono')" type="tel" placeholder="+54 11 1234-5678"
+                        maxlength="20" value="{{ old('telefono') }}" />
 
                     <flux:input name="dni" :label="__('DNI')" type="text" placeholder="12345678"
-                        pattern="[0-9]{8}" maxlength="8" />
+                        pattern="[0-9]{8}" maxlength="8" value="{{ old('dni') }}" />
                 </div>
 
                 {{-- Campo Contraseña --}}
-                <flux:input name="password" :label="__('Contraseña')" type="password" required
+                <flux:input name="contraseña" :label="__('Contraseña')" type="password" required
                     autocomplete="new-password" placeholder="Contraseña" viewable />
 
                 {{-- Campo Confirmar Contraseña --}}
                 {{-- Nota: Laravel espera 'password_confirmation' para la validación --}}
-                <flux:input name="password_confirmation" :label="__('Confirmar Contraseña')" type="password" required
+                <flux:input name="contraseña_confirmation" :label="__('Confirmar Contraseña')" type="password" required
                     autocomplete="new-password" placeholder="Confirmar Contraseña" viewable />
 
                 {{-- Tipo de usuario (Radio Buttons) --}}
@@ -51,28 +51,28 @@
 
                         <label
                             class="flex items-center p-3 border border-custom rounded-lg cursor-pointer hover-card-custom">
-                            <input type="radio" name="userType" value="owner"
-                                {{ old('userType') == 'owner' ? 'checked' : '' }}
+                            <input type="radio" name="tipo_usuario" value="propietario"
+                                {{ old('tipo_usuario') == 'propietario' ? 'checked' : '' }}
                                 class="w-4 h-4 text-blue-custom border-custom focus-ring-custom" required>
                             <span class="ml-2 text-sm font-medium text-primary-custom">Propietario</span>
                         </label>
                         <label
                             class="flex items-center p-3 border border-custom rounded-lg cursor-pointer hover-card-custom">
-                            <input type="radio" name="userType" value="tenant"
-                                {{ old('userType') == 'tenant' ? 'checked' : '' }}
+                            <input type="radio" name="tipo_usuario" value="inquilino"
+                                {{ old('tipo_usuario') == 'inquilino' ? 'checked' : '' }}
                                 class="w-4 h-4 text-blue-custom border-custom focus-ring-custom" required>
                             <span class="ml-2 text-sm font-medium text-primary-custom">Inquilino</span>
                         </label>
                     </div>
-                    @error('userType')
+                    @error('tipo_usuario')
                         <span class="text-sm text-red-500 mt-1 block">{{ $message }}</span>
                     @enderror
                 </div>
 
                 {{-- Términos y Condiciones (Checkbox) --}}
                 <div class="flex items-start">
-                    <input type="checkbox" id="terms" name="terms" value="1"
-                        {{ old('terms') ? 'checked' : '' }}
+                    <input type="checkbox" id="terms" name="terminos" value="1"
+                        {{ old('terminos') ? 'checked' : '' }}
                         class="w-4 h-4 mt-1 text-blue-custom border-custom rounded focus-ring-custom @error('terms') border-red-500 @enderror"
                         required>
                     <div class="ml-2">
@@ -80,7 +80,7 @@
                             <flux:link href="#" class="text-blue-600 hover:text-blue-700 hover:underline">Términos
                                 de Servicio y la de Privacidad</flux:link>
                         </span>
-                        @error('terms')
+                        @error('terminos')
                             <span class="text-sm text-red-500 mt-1 block">{{ $message }}</span>
                         @enderror
                     </div>

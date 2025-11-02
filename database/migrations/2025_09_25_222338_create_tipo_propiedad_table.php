@@ -11,6 +11,7 @@ class CreateTipoPropiedadTable extends Migration
         Schema::create('tipo_propiedades', function (Blueprint $table) {
             $table->id(); // id INT auto-increment
             $table->string('tipo_propiedad', 100);
+            $table->timestamps(); // created_at y updated_at
         });
     }
 
