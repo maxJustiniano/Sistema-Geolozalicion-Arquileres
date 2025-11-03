@@ -14,6 +14,7 @@ class RolesUserSeeder extends Seeder
     {
         DB::table('roles')->insert([
             ['nombre_rol' => 'propietario'],
+            ['nombre_rol' => 'inquilino'],
             ['nombre_rol' => 'admin'],
         ]);
     }

@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Http\Request;
-use App\Models\IdentidadUsuario\Persona;
-use App\Models\User; // Necesario para buscar al usuario después del registro
+use App\Models\User;
+use App\Models\IdentidadUsuario\UsuarioManager; // Necesario para buscar al usuario después del registro
 
 
 class registerController extends Controller
@@ -55,26 +55,35 @@ class registerController extends Controller
         $hashedPassword = Hash::make($request->contraseña);
         $idRol = $this->getRoleId($request->tipo_usuario);
 
-        // 4. CREAR REGISTRO DE USUARIO, ENLAZADO A LA PERSONA
-        $user = User::create([
-            'name' => $request->nombre . '-' . $request->apellido, // Nombre completo
+        $userData = [
+            'id_rol' => $idRol,
+            'name' => $request->nombre . ' ' . $request->apellido,
             'email' => $request->email,
             'password' => $hashedPassword,
-            'id_rol' => $idRol,
-        ]);
-
-        // 3. CREAR REGISTRO DE PERSONA
-        $persona = Persona::create([
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
-            'dni' => $request->dni,
             'telefono' => $request->telefono,
-            'user_id' => $user->id,
-        ]);
+            'dni' => $request->dni,
+        ];
 
-        Auth::login($user);
-        
-        // Redirige al usuario al dashboard después de un registro exitoso.
-        return redirect()->route('dashboard');
+        // 3. LLAMADA AL MODELO MANAGER
+        $userId = UsuarioManager::registrarUsuario($userData);
+
+        if (!$userId) {
+            // Si el SP falló (por un error de unicidad que la validación no atrapó o error de transacción)
+            return back()->withErrors([
+                'general' => 'No se pudo completar el registro. Intente de nuevo o verifique si su DNI/Email ya existe.'
+            ])->withInput();
+        }
+
+        // 4. Autenticación y Redirección
+        $user = User::find($userId); // Necesitas buscar al User con el ID devuelto
+        if ($user) {
+            Auth::login($user);
+            return redirect()->route('dashboard');
+        }
+
+        return back()->withErrors(['general' => 'Registro exitoso, pero fallo al iniciar sesión.']);
     }
 }
+
