@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Propiedades - Formosa Capital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header id="header">
+        <div class="logo"><i class="fas fa-home"></i> Propiedades Formosa</div>
+        <div class="subtitle">Encuentra tu hogar ideal en la capital</div>
+        <div class="header-actions">
+            <button id="toggleFiltersBtn" class="header-btn"><i class="fas fa-filter"></i> Filtros</button>
+            <a href="cargar_inmueble.html" class="header-btn" style="text-decoration:none; display:inline-flex; align-items:center;"><i class="fas fa-upload"></i> Publicar</a>
+            <button id="loginBtn" class="header-btn"><i class="fas fa-user"></i> Iniciar Sesión</button>
+        </div>
+    </header>
+
+    <div id="sidebar">
+        <h2><i class="fas fa-filter"></i> Filtros Avanzados</h2>
+        
+        <div class="filter-card collapsible collapsed">
+            <h3 class="filter-title"><i class="fas fa-home"></i> Tipo de Alojamiento</h3>
+            <div class="filter-content">
+                <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="apartamento"> Apartamentos</label>
+                <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="casa_chalet"> Casas y Chalets</label>
+                <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="albergue"> Albergues</label>
+                <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="habitacion_particular"> Habitaciones en casas particulares</label>
+                <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="villa"> Villas</label>
+                <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="hotel"> Hoteles</label>
+                <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="residencial"> Residenciales</label>
+                <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="alquiler"> Alquileres</label>
+                <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="cabana"> Cabañas</label>
+                <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="camping"> Camping</label>
+            </div>
+        </div>
+
+        <div class="filter-card collapsible collapsed">
+            <h3 class="filter-title"><i class="fas fa-concierge-bell"></i> Instalaciones</h3>
+            <div class="filter-content">
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="estacionamiento"> Estacionamiento</label>
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="restaurante"> Restaurante</label>
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="servicio_habitaciones"> Servicio de habitaciones</label>
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="recepcion_24_horas"> Recepción 24 horas</label>
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="gimnasio"> Gimnasio</label>
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="traslado_aeropuerto"> Traslado aeropuerto</label>
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="spa_bienestar"> Spa y centro de bienestar</label>
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="banera_hidromasaje"> Bañera hidromasaje</label>
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="jacuzzi"> Jacuzzi</label>
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="wifi_gratis"> Wifi Gratis</label>
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="estacion_carga_vehiculos_electricos"> Estación de carga de vehículos eléctricos</label>
+                <label class="checkbox-label"><input type="checkbox" class="facility" value="adaptado_sillas_ruedas"> Adaptado para sillas de ruedas</label>
+            </div>
+        </div>
+
+        <div class="filter-card collapsible collapsed">
+            <h3 class="filter-title"><i class="fas fa-person-booth"></i> Servicios de la habitación</h3>
+            <div class="filter-content">
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="bano_privado"> Baño privado</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="piscina_privada"> Piscina privada</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="balcon"> Balcón</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="aire_acondicionado"> Aire acondicionado</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="cocina"> Cocina</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="banera_hidromasaje_habitacion"> Bañera de hidromasaje</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="vistas"> Vistas</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="banera"> Bañera</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="sauna"> Sauna</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="chimenea"> Chimenea</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="vistas_montana"> Vistas a la montaña</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="acceso_ascensor"> Acceso a pisos superiores en ascensor</label>
+                <label class="checkbox-label"><input type="checkbox" class="room-service" value="tv_pantalla_plana"> TV de pantalla plana</label>
+            </div>
+        </div>
+
+        <div class="filter-card collapsible collapsed">
+            <h3 class="filter-title"><i class="fas fa-users"></i> Tipo de Grupo</h3>
+            <div class="filter-content">
+                <label class="checkbox-label"><input type="checkbox" class="group-type" value="admite_mascotas"> Admite mascotas</label>
+                <label class="checkbox-label"><input type="checkbox" class="group-type" value="solo_adultos"> Solo para adultos</label>
+            </div>
+        </div>
+
+        <div class="filter-card collapsible collapsed">
+            <h3 class="filter-title"><i class="fas fa-glass-cheers"></i> Para pasarlo bien</h3>
+            <div class="filter-content">
+                <label class="checkbox-label"><input type="checkbox" class="fun-type" value="piscina"> Piscina</label>
+                <label class="checkbox-label"><input type="checkbox" class="fun-type" value="sala_juegos"> Sala de juegos</label>
+                <label class="checkbox-label"><input type="checkbox" class="fun-type" value="cine"> Cine</label>
+            </div>
+        </div>
+
+        <div class="filter-card collapsible collapsed">
+            <h3 class="filter-title"><i class="fas fa-bed"></i> Habitaciones (mín)</h3>
+            <div class="filter-content">
+                <label class="checkbox-label"><input type="radio" name="minRooms" class="min-rooms" value="1" checked> 1 habitación</label>
+                <label class="checkbox-label"><input type="radio" name="minRooms" class="min-rooms" value="2"> 2 habitaciones</label>
+                <label class="checkbox-label"><input type="radio" name="minRooms" class="min-rooms" value="3"> 3 habitaciones</label>
+                <label class="checkbox-label"><input type="radio" name="minRooms" class="min-rooms" value="4"> 4 habitaciones</label>
+                <label class="checkbox-label"><input type="radio" name="minRooms" class="min-rooms" value="5"> 5+ habitaciones</label>
+            </div>
+        </div>
+
+        <div class="filter-card collapsible collapsed">
+            <h3 class="filter-title"><i class="fas fa-bath"></i> Baños (mín)</h3>
+            <div class="filter-content">
+                <label class="checkbox-label"><input type="radio" name="minBathrooms" class="min-bathrooms" value="1" checked> 1 baño</label>
+                <label class="checkbox-label"><input type="radio" name="minBathrooms" class="min-bathrooms" value="2"> 2 baños</label>
+                <label class="checkbox-label"><input type="radio" name="minBathrooms" class="min-bathrooms" value="3"> 3 baños</label>
+                <label class="checkbox-label"><input type="radio" name="minBathrooms" class="min-bathrooms" value="4"> 4+ baños</label>
+            </div>
+        </div>
+
+        <div class="filter-card collapsible collapsed">
+            <h3 class="filter-title"><i class="fas fa-dollar-sign"></i> Rango de Precios (ARS)</h3>
+            <div class="filter-content">
+                <div class="filter-group">
+                    <div class="price-inputs">
+                        <input type="text" id="minPrice" placeholder="Ingrese precio mínimo">
+                        <input type="text" id="maxPrice" placeholder="Ingrese precio máximo">
+                    </div>
+                    <div id="priceRangeDisplay"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="button-group">
+            <button id="applyFilters" class="apply-btn"><i class="fas fa-search"></i> Aplicar Filtros</button>
+            <button id="clearFilters" class="clear-btn"><i class="fas fa-times"></i> Limpiar</button>
+        </div>
+    </div>
+
+    <button id="toggleSidebar" class="toggle-btn"><i class="fas fa-bars"></i></button>
+
+    <div id="map"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+    <script src="map.js"></script>
+</body>
+</html>

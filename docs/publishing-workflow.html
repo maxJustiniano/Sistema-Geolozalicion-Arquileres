@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflow Publicación Propiedades</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; margin: 40px; color: #1f2933; }
+        h1 { color: #1d4ed8; }
+        code { background: #e2e8f0; padding: 2px 6px; border-radius: 4px; }
+        pre { background: #0f172a; color: #f8fafc; padding: 16px; border-radius: 8px; overflow: auto; }
+        a { color: #2563eb; }
+        ul { margin-bottom: 16px; }
+    </style>
+</head>
+<body>
+    <h1>Workflow para publicar propiedades</h1>
+
+    <h2>Roles y autorizaciones</h2>
+    <ul>
+        <li><strong>Viewer</strong>: Solo consulta.</li>
+        <li><strong>Publisher</strong>: Puede crear/editar propiedades.</li>
+        <li><strong>Admin</strong>: Asigna roles y aprueba publicaciones.</li>
+    </ul>
+
+    <h2>Flujo sugerido</h2>
+    <ol>
+        <li>Autenticar al usuario (JWT, Sanctum, etc.).</li>
+        <li>Validar permisos (<code>role === 'publisher'</code>).</li>
+        <li>Subir imagen a storage (S3/local) y guardar URL.</li>
+        <li>Guardar la propiedad en DB.<br>
+            <pre>{
+  "title": "Casa", 
+  "price": 850000,
+  "coordinates": {"lat": -26.18, "lng": -58.17},
+  "images": ["https://.../foto1.jpg"]
+}</pre>
+        </li>
+        <li>Opcional: workflow de revisión antes de publicar.</li>
+    </ol>
+
+    <h2>Endpoints sugeridos</h2>
+    <ul>
+        <li><code>GET /api/roles/me</code> → roles actuales.</li>
+        <li><code>POST /api/properties</code> → crear propiedad.</li>
+        <li><code>POST /api/properties/{id}/images</code> → subir imágenes.</li>
+        <li><code>POST /api/roles/request</code> → solicitar rol publisher.</li>
+    </ul>
+
+    <p>Integrar el formulario utilizando <code>fetch</code> o Axios y manejar las respuestas de la API con mensajes claros al usuario.</p>
+</body>
+</html>
+
