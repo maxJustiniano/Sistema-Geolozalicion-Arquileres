@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-use App\Models\IdentidadUsuario\Persona;
 use App\Models\IdentidadUsuario\Role;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -27,7 +26,10 @@ class User extends Authenticatable
         'email',
         'password',
         'id_rol',
-        'persona_id'
+        'nombre_persona',
+        'apellido_persona',
+        'telefono_persona',
+        'dni_persona'
     ];
 
     /**
@@ -70,11 +72,6 @@ class User extends Authenticatable
     public function rol()
     {
         return $this->belongsTo(Role::class, 'id_rol');
-    }
-
-    public function persona()
-    {
-        return $this->hasOne(Persona::class);
     }
 
 }

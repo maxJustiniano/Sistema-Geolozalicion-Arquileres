@@ -4,7 +4,7 @@ namespace App\Livewire\IdentidadUsuario;
 
 use App\Livewire\Shared\DataTable; 
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\IdentidadUsuario\UsuariosViews; // 1. Importar el nuevo modelo de la vista
+use App\Models\User; // 1. Importar el nuevo modelo de la vista
 
 // Extiende de tu clase base
 class UsuarioTable extends DataTable
@@ -15,41 +15,34 @@ class UsuarioTable extends DataTable
     public function mount()
     {
         // 2. Asignar el modelo de la Vista SQL
-        $this->model = UsuariosViews::class; 
+        $this->model = User::class; 
 
         // 3. Actualizar columnas: Ahora son directas de la vista
         $this->searchColumns = [
-            'nombre',
-            'apellido',
-            'dni',
-            'telefono',
-            'nombre_usuario', // Antes era 'user.name'
+            'name',
+            'nombre_persona',
+            'apellido_persona',
+            'dni_persona',
+            'telefono_persona', // Antes era 'user.name'
             'email',          // Antes era 'user.email'
-            'nombre_rol'      // Antes era 'user.role.nombre_rol'
         ];
 
         $this->files = [
-            'persona_id',      
-            'user_id',
-            'nombre',
-            'apellido',
-            'nombre_usuario', // Nombre directo de la vista
-            'dni',
-            'email',          // Email directo de la vista
-            'telefono',
-            'nombre_rol'      // Tipo de Usuario directo de la vista
+            'name',
+            'nombre_persona',
+            'apellido_persona',
+            'dni_persona',
+            'telefono_persona', // Antes era 'user.name'
+            'email',      // Tipo de Usuario directo de la vista
         ];
 
         $this->labels = [
-            'ID Persona',      
-            'ID Usuario',
             'Nombre', 
             'Apellido', 
-            'Usuario', 
+            'Nombre de Usuario', 
             'DNI', 
             'Email', 
-            'Teléfono', 
-            'Tipo de Usuario'
+            'Teléfono'
         ];
     }
 

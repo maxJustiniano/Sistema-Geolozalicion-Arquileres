@@ -15,6 +15,11 @@ class CreatePropiedadesTable extends Migration
             $table->string('titulo', 150);
             $table->text('descripcion')->nullable();
             $table->date('fecha_publicacion');
+
+            //Longitud y Latitud
+            $table->integer('longitud');
+            $table->integer('latitud');
+            
             $table->timestamps(); // created_at y updated_at
 
             // Claves foráneas (si deseas relaciones explícitas)

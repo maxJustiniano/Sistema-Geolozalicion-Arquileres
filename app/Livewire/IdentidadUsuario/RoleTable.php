@@ -5,6 +5,7 @@ namespace App\Livewire\IdentidadUsuario;
 // 1. Importa tu clase base
 use App\Livewire\Shared\DataTable; 
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\IdentidadUsuario\Role;
 
 // 2. Extiende de tu clase base
 class RoleTable extends DataTable
@@ -16,7 +17,7 @@ class RoleTable extends DataTable
      */
     public function mount()
     {
-        $this->model = \App\Models\IdentidadUsuario\Role::class;
+        $this->model = Role::class;
         $this->searchColumns = ['nombre_rol'];
         $this->files = ['id', 'nombre_rol'];
         $this->labels = ['ID', 'Rol'];
