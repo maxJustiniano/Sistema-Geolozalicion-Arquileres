@@ -1,18 +1,16 @@
 <?php
 
-//Use predefinidos de livewire
+// Use predefinidos de livewire
+use App\Http\Controllers\Auth\registerController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
+// Use de rutas personalizadas
+use Laravel\Fortify\Features; // Controlador del register
 
-//Use de rutas personalizadas
-use App\Http\Controllers\Auth\registerController; //Controlador del register
-
-
-//Routes predefinidos de livewire
+// Routes predefinidos de livewire
 Route::get('/', function () {
     return view('welcome');
 });
@@ -40,17 +38,21 @@ Route::middleware(['auth'])->group(function () {
         ->name('two-factor.show');
 });
 
-//Rutas de Estaticas Personalizadas (Home y error)
+// Rutas de Estaticas Personalizadas (Home y error)
 Route::get('/error404', function () {
     return view('errors/404');
 })->name('error404');
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+Route::get('/info', function () {
+    return view('info');
+})->name('info');
 
+// Simplemente muestra la vista 'home_init' que contiene el componente Livewire
+Route::get('/inicio', function () {
+    return view('home_init');
+})->name('inicio');
 
-//Rutas de Registro Personalizadas (Auth)
+// Rutas de Registro Personalizadas (Auth)
 
 // Ruta GET para mostrar el formulario de registro
 Route::get('/register', [registerController::class, 'create'])
@@ -61,11 +63,9 @@ Route::post('/register', [registerController::class, 'store'])
     ->middleware('guest')
     ->name('register');
 
-
-//Rutas de Crud personas Personalizadas
+// Rutas de Crud personas Personalizadas
 
 Route::middleware(['auth'])->group(function () {
-
     Route::get('/usuarios', function () {
         return view('usuarios.index');
     })->name('usuarios');
@@ -77,5 +77,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/create', function () {
         return view('roles.create');
     })->name('create');
-
 });

@@ -53,6 +53,7 @@
     </div>
 </footer>
 
+@livewireScripts
 </body>
 </head>
 

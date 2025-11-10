@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
+@livewireStyles
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
-
+@vite(['resources/js/app.js'])
 </head>
 <nav class="bg-gray-900 border-gray-700">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 
         {{-- 1. Logo y Título (Diseño Minimalista) --}}
-        <a href="{{ route('home') }}" class="flex items-center space-x-2 rtl:space-x-reverse md:order-1">
+        <a href="{{ route('info') }}" class="flex items-center space-x-2 rtl:space-x-reverse md:order-1">
             <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
             <span class="self-center text-xl font-bold tracking-tight whitespace-nowrap text-white">FormosaZone</span>
         </a>
@@ -58,14 +58,11 @@
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-2" id="navbar-links">
             <ul
                 class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-gray-900 dark:border-gray-700">
+                
                 <li>
-                    <a href="{{ route('home') }}" class="block py-2 px-3 text-indigo-400 rounded-lg md:p-0"
-                        aria-current="page">Home</a>
-                </li>
-                <li>
-                    <a href="#"
+                    <a href="{{ route('inicio') }}"
                         class="block py-2 px-3 text-white rounded-lg hover:text-indigo-400 md:p-0 transition duration-150">
-                        Buscar propiedades
+                        inicio
                     </a>
                 </li>
                 <li>
@@ -73,6 +70,11 @@
                         class="block py-2 px-3 text-white rounded-lg hover:text-indigo-400 md:p-0 transition duration-150">
                         Contacto
                     </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('info') }}" class="block py-2 px-3 text-indigo-400 rounded-lg md:p-0"
+                        aria-current="page">¿Quiénes Somos?</a>
                 </li>
             </ul>
         </div>
