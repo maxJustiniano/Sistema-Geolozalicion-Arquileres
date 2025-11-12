@@ -67,8 +67,7 @@ Route::post('/register', [registerController::class, 'store'])
     ->name('register');
 
 // Rutas de Crud personas Personalizadas
-
-Route::middleware(['auth'])->group(function () {
+Route::middleware('check_user_type:3')->group(function () {
 
     // Ruta POST para procesar el envío del formulario y registrar al usuario
     Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index');
@@ -83,10 +82,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Ruta de Eliminación
     Route::delete('/usuarios/{user}/destroy', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
-
-
-
-
 
     // Ruta POST para procesar el envío del formulario y registrar al usuario
     Route::get('/roles', [RolesController::class, 'index'])
@@ -103,3 +98,8 @@ Route::middleware(['auth'])->group(function () {
     // Ruta de Eliminación
     Route::delete('/roles/{rol}/destroy', [RolesController::class, 'destroy'])->name('roles.destroy');
 });
+
+
+Route::get('/403', function () {
+    return view('errors.403');
+})->name('403');
