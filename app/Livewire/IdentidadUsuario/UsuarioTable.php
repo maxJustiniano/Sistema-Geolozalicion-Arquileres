@@ -11,6 +11,9 @@ class UsuarioTable extends DataTable
 {
     // Cambiamos el nombre de la tabla para reflejar el contenido completo
     public $nombre_tabla = 'Gestión de Usuarios';
+    public $url_edit='usuarios.edit';
+    public $url_create='usuarios.create';
+    public $url_delet='usuarios.destroy';
 
     public function mount()
     {

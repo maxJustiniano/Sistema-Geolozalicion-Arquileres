@@ -11,7 +11,10 @@ use App\Models\IdentidadUsuario\Role;
 class RoleTable extends DataTable
 {
     public $nombre_tabla  = 'Tipo de Usuarios';
-    /**
+    public $url_edit='roles.edit';
+    public $url_create='roles.create';
+    public $url_delet='roles.destroy';
+    /**url_create
      * 3. Configura las propiedades en el 'mount'
      * Aquí es donde pones la lógica que antes tenías en la vista.
      */
