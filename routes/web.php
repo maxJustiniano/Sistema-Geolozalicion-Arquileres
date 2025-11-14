@@ -9,6 +9,9 @@ use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
 // Use de rutas personalizadas
 use Laravel\Fortify\Features; // Controlador del register
+use App\Http\Controllers\IdentidadUsuario\RolesController;
+use App\Http\Controllers\IdentidadUsuario\UsuariosController;
+
 
 // Routes predefinidos de livewire
 Route::get('/', function () {
@@ -64,17 +67,39 @@ Route::post('/register', [registerController::class, 'store'])
     ->name('register');
 
 // Rutas de Crud personas Personalizadas
+Route::middleware('check_user_type:3')->group(function () {
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/usuarios', function () {
-        return view('usuarios.index');
-    })->name('usuarios');
+    // Ruta POST para procesar el envío del formulario y registrar al usuario
+    Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index');
 
-    Route::get('/roles', function () {
-        return view('roles.index');
-    })->name('roles');
+    // Ruta POST para procesar el envío del formulario y registrar al usuario
+    Route::get('/usuarios/create', [UsuariosController::class, 'create'])->name('usuarios.create');
+    Route::post('/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store');
 
-    Route::get('/create', function () {
-        return view('roles.create');
-    })->name('create');
+    // Rutas de Edición/Actualización
+    Route::get('/usuarios/{user}/edit', [UsuariosController::class, 'edit'])->name('usuarios.edit');
+    Route::put('/usuarios/{user}/update', [UsuariosController::class, 'update'])->name('usuarios.update'); // Usamos PUT
+
+    // Ruta de Eliminación
+    Route::delete('/usuarios/{user}/destroy', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
+
+    // Ruta POST para procesar el envío del formulario y registrar al usuario
+    Route::get('/roles', [RolesController::class, 'index'])
+        ->name('roles.index');
+
+    // Ruta POST para procesar el envío del formulario y registrar al usuario
+    Route::get('/roles/create', [RolesController::class, 'create'])->name('roles.create');
+    Route::post('/roles', [RolesController::class, 'store'])->name('roles.store');
+
+    // Rutas de Edición/Actualización
+    Route::get('/roles/{rol}/edit', [RolesController::class, 'edit'])->name('roles.edit');
+    Route::put('/roles/{rol}/update', [RolesController::class, 'update'])->name('roles.update'); // Usamos PUT
+
+    // Ruta de Eliminación
+    Route::delete('/roles/{rol}/destroy', [RolesController::class, 'destroy'])->name('roles.destroy');
 });
+
+
+Route::get('/403', function () {
+    return view('errors.403');
+})->name('403');
