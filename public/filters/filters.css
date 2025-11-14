@@ -1,0 +1,247 @@
+ /* Fuente Inter */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+    /* Definición de Variables CSS */
+    :root {
+        --sidebar-width: 380px;
+        --primary-color: #007bff; /* Azul primario fuerte */
+        --secondary-color: #00bfff; /* Azul claro para gradientes */
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* ---------------------------------- */
+    /* Estilos Base */
+    /* ---------------------------------- */
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #eef2f5; 
+        color: #333;
+    }
+
+    /* ---------------------------------- */
+    /* ESTRUCTURA PRINCIPAL DEL SIDEBAR */
+    /* ---------------------------------- */
+
+    #sidebar {
+        width: 100%;
+        max-width: var(--sidebar-width);
+        z-index: 1000;
+        overflow-y: auto;
+        overflow-x: hidden;
+        
+        /* Estilo visual */
+        background: #ffffff;
+        padding: 28px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        border-radius: 20px;
+        border: 1px solid rgba(0, 123, 255, 0.1);
+    }
+
+    /* Título Principal */
+    #sidebar h2 {
+        margin: 0 0 25px;
+        color: var(--primary-color);
+        font-weight: 700;
+        border-bottom: 3px solid rgba(0, 123, 255, 0.2);
+        padding-bottom: 15px;
+        display: flex;
+        align-items: center;
+        font-size: 22px;
+    }
+
+    #sidebar h2 i {
+        margin-right: 12px;
+        color: var(--secondary-color);
+        font-size: 24px;
+    }
+            
+    /* ---------------------------------- */
+    /* ESTILOS DE TARJETAS DE FILTRO */
+    /* ---------------------------------- */
+
+    .filter-card {
+        background: #f8faff;
+        border-radius: 15px;
+        padding: 0; 
+        margin-bottom: 18px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 123, 255, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .filter-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Título de la Tarjeta (Collapsible) */
+    .filter-title {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 17px;
+        font-weight: 600;
+        padding: 15px 20px;
+        background-color: #ffffff;
+        border-bottom: 1px solid transparent;
+        color: #34495e;
+        transition: all 0.3s;
+    }
+
+    .filter-card:not(.collapsed) .filter-title {
+        background-color: #e5f4ff; /* Fondo más claro al abrir */
+        border-bottom: 1px solid var(--primary-color);
+    }
+
+    /* Iconos en el título */
+    .filter-title i:first-child { 
+        margin-right: 10px;
+        color: var(--primary-color);
+    }
+    .filter-title i:last-child { 
+        margin-left: 10px;
+        transition: transform 0.3s ease;
+        color: var(--primary-color);
+        font-size: 14px;
+    }
+
+    /* Gira la flecha cuando está abierto */
+    .filter-card:not(.collapsed) .filter-title i:last-child {
+        transform: rotate(180deg);
+    }
+
+    .filter-content {
+        padding: 10px 20px 5px;
+        display: block;
+        max-height: 300px; 
+        overflow-y: auto;
+        /* Estilo para la barra de desplazamiento */
+        scrollbar-width: thin;
+        scrollbar-color: var(--secondary-color) #f8faff;
+    }
+
+    .filter-card.collapsed .filter-content {
+        display: none;
+    }
+
+    /* Estilo de Checkboxes y Radio Buttons */
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        margin: 12px 0;
+        cursor: pointer;
+        font-weight: 400;
+        padding: 8px;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+    }
+
+    .checkbox-label:hover {
+        background: rgba(0, 123, 255, 0.1);
+    }
+
+    .checkbox-label input[type="checkbox"],
+    .checkbox-label input[type="radio"] {
+        margin-right: 12px;
+        transform: scale(1.2);
+        accent-color: var(--primary-color);
+        cursor: pointer;
+    }
+
+    /* Estilo de Inputs de Precio */
+    .price-inputs {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .price-inputs input {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        font-size: 15px;
+        font-family: inherit;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .price-inputs input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    }
+
+    #priceRangeDisplay {
+        margin-top: 15px;
+        text-align: center;
+        font-weight: 500;
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    /* Estilo de botones */
+    .button-group {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .apply-btn, .clear-btn {
+        flex: 1;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .apply-btn {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    }
+
+    .apply-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+    }
+
+    .clear-btn {
+        background: linear-gradient(135deg, #a0a0a0 0%, #c8c8c8 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(160, 160, 160, 0.3);
+    }
+
+    .clear-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(160, 160, 160, 0.4);
+    }
+
+    /* ---------------------------------- */
+    /* RESPONSIVIDAD (MÓVIL) */
+    /* ---------------------------------- */
+
+    @media (max-width: 600px) {
+        #sidebar {
+            width: 100%;
+            max-width: none;
+            padding: 20px;
+        }
+
+        .button-group {
+            flex-direction: column;
+        }
+    }

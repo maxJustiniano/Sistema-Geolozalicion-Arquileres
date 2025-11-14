@@ -61,20 +61,29 @@
                 
                 <li>
                     <a href="{{ route('inicio') }}"
-                        class="block py-2 px-3 text-white rounded-lg hover:text-indigo-400 md:p-0 transition duration-150">
-                        inicio
+                        class="block py-2 px-3 md:p-0 transition duration-150 rounded-lg 
+                        {{-- ACTIVO: solo color índigo | INACTIVO: gris con hover --}}
+                        {{ request()->routeIs('inicio') ? 'text-indigo-400' : 'text-gray-300 hover:text-indigo-400' }}"
+                        {{ request()->routeIs('inicio') ? 'aria-current="page"' : '' }}>
+                        Inicio
                     </a>
                 </li>
+                
                 <li>
                     <a href="#"
-                        class="block py-2 px-3 text-white rounded-lg hover:text-indigo-400 md:p-0 transition duration-150">
+                        class="block py-2 px-3 md:p-0 transition duration-150 rounded-lg text-gray-300 hover:text-indigo-400">
                         Contacto
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ route('info') }}" class="block py-2 px-3 text-indigo-400 rounded-lg md:p-0"
-                        aria-current="page">¿Quiénes Somos?</a>
+                    <a href="{{ route('info') }}"
+                        class="block py-2 px-3 md:p-0 transition duration-150 rounded-lg 
+                        {{-- ACTIVO: solo color índigo | INACTIVO: gris con hover --}}
+                        {{ request()->routeIs('info') ? 'text-indigo-400' : 'text-gray-300 hover:text-indigo-400' }}"
+                        {{ request()->routeIs('info') ? 'aria-current="page"' : '' }}>
+                        ¿Quiénes Somos?
+                    </a>
                 </li>
             </ul>
         </div>

@@ -1,12 +1,14 @@
 <x-layouts.app.navbar />
 
 <section
-    class="bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply">
+    class="bg-center bg-no-repeat bg-cover bg-gray-700 bg-blend-multiply" {{-- Agregado bg-cover y bg-gray-700 bg-blend-multiply --}}
+    style="background-image: url('{{ Vite::asset('resources/img/una-imagen-de-mapa.jpeg') }}');">
     <div class="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
-        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Tu
-            Próximo Hogar te Espera en el Mapa</h1>
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Bienvenido al sistema de Geolocalizacion
+            de Formosa Capital
+        </h1>
         <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">Encuentra y alquila propiedades
-            fácilmente. Filtra por ubicación, precio y características para descubrir el lugar perfecto para vivir.</p>
+            fácilmente filtrando por ubicación, precio y características para descubrir el lugar perfecto para vivir.</p>
         <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
             <a href="#"
                 class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
@@ -18,7 +20,8 @@
                 </svg>
             </a>
             <a href="#"
-                class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400">
+                class="inline-flex justify-center items-center py-3 px-5 sm:ms-4 text-base font-medium text-center rounded-lg border
+                       text-white border-white hover:bg-white hover:text-gray-900 focus:ring-4 focus:ring-gray-400"> {{-- Ajustes aquí para el contraste --}}
                 Publicar Propiedad
             </a>
         </div>
@@ -96,7 +99,7 @@
                                 stroke-width="1.5" stroke="currentColor" class="size-6 text-white">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                            </svg>
+                                </svg>
                         </div>
                         Gestión de Propiedades
                     </dt>

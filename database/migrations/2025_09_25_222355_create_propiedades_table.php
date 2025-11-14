@@ -23,7 +23,7 @@ class CreatePropiedadesTable extends Migration
             $table->timestamps(); // created_at y updated_at
 
             // Claves foráneas (si deseas relaciones explícitas)
-            $table->foreign('id_usuario')->references('id')->on('personas')->onDelete('cascade');
+            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_tipo_propiedad')->references('id')->on('tipo_propiedades')->onDelete('cascade');
         });
     }

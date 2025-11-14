@@ -43,7 +43,7 @@ Route::get('/error404', function () {
     return view('errors/404');
 })->name('error404');
 
-Route::get('/info', function () {
+Route::get('/sobrenosotros', function () {
     return view('info');
 })->name('info');
 

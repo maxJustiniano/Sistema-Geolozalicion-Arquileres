@@ -10,14 +10,36 @@ class Propiedades extends Component
 {
     use WithPagination;
 
+    // Propiedad para almacenar el valor de búsqueda
+    public $search = '';
+
+    // LISTENER: Define qué métodos deben ejecutarse cuando se emite un evento específico.
+    protected $listeners = ['searchUpdated' => 'applySearch'];
+
+    // Método que actualiza la propiedad y resetea la paginación
+    public function applySearch($value)
+    {
+        $this->search = $value;
+        $this->resetPage();
+    }
+
     // Método que se ejecuta al renderizar el componente
     public function render()
     {
-        // 1. Lógica de obtención de datos usando tu modelo Propiedad
-        $properties = Propiedad::orderBy('fecha_publicacion', 'desc')->paginate(10);
+        $query = Propiedad::orderBy('fecha_publicacion', 'desc');
 
-        // 2. Retorna la vista de Livewire, pasando la colección de propiedades
-        return view('livewire.Propiedades', [
+        // Aplicar filtro de búsqueda si $search tiene contenido
+        if ($this->search) {
+            $query->where(function ($q) {
+                // Buscar coincidencias en el título o descripción
+                $q->where('titulo', 'like', '%'.$this->search.'%')
+                  ->orWhere('descripcion', 'like', '%'.$this->search.'%');
+            });
+        }
+
+        $properties = $query->paginate(10);
+
+        return view('livewire.propiedades', [
             'Propiedades' => $properties,
         ]);
     }

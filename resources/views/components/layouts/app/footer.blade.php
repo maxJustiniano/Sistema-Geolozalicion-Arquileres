@@ -54,6 +54,7 @@
 </footer>
 
 @livewireScripts
+
 </body>
 </head>
 
