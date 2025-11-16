@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="cargar_inmueble.css">
+    @vite(['resources/css/cargar_inmueble.css', 'resources/js/cargar_inmueble.js'])
 </head>
 <body>
     <header class="publish-header">
         <div class="header-left">
-            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al mapa</a>
+            <a href="{{ url('/') }}" class="back-link"><i class="fas fa-arrow-left"></i> Volver al mapa</a>
         </div>
         <div class="header-center-title">
             <span class="header-title-text">Sube tu propiedad</span>
@@ -135,7 +135,7 @@
                 <h2>Galería de imágenes</h2>
                 <p class="helper-text">Puedes subir hasta 10 imágenes en formato JPG o PNG (máx. 3MB cada una). La primera imagen será la portada.</p>
                 <div class="image-slots-grid" id="imageSlotsGrid">
-                    <!-- Los slots se generan dinámicamente con JavaScript -->
+
                 </div>
 
                 <div class="form-actions">
@@ -147,7 +147,5 @@
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js"></script>
-    <script src="cargar_inmueble.js"></script>
 </body>
 </html>
-

@@ -15,7 +15,15 @@ use App\Http\Controllers\IdentidadUsuario\UsuariosController;
 
 // Routes predefinidos de livewire
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::get('/cargar-inmueble', function () {
+    return view('cargar_inmueble');
+});
+
+Route::get('/detalle-inmueble', function () {
+    return view('detalle_inmueble');
 });
 
 Route::view('dashboard', 'dashboard')

@@ -168,8 +168,7 @@ $(function () {
     map = L.map('map', {
         center: L.latLng(-26.1773, -58.1810),
         zoom: 13,
-        minZoom: 11,
-        maxZoom: 18,
+        minZoom: 11, maxZoom: 18,
         zoomControl: true,
         layers: [argenmap],
         maxBounds: formosaBounds,
@@ -196,7 +195,7 @@ $(function () {
         let newCursorPosition = 0;
         let digitsCounted = 0;
         for (let i = 0; i < formatted.length && digitsCounted < digitsBeforeCursor; i++) {
-            if (/\d/.test(formatted[i])) {
+            if (/W/.test(formatted[i])) {
                 digitsCounted++;
             }
             newCursorPosition = i + 1;
@@ -322,8 +321,8 @@ function addAllMarkers() {
         
         const popupContent = `
             <div style="font-family: Roboto, sans-serif; max-width: 480px; padding: 5px;">
-                <div style=\"width: 100%; height: 180px; overflow: hidden; border-radius: 10px; background: #f2f2f2; display: flex; align-items: center; justify-content: center;\">
-                    <img src=\"https://via.placeholder.com/480x180?text=Foto+de+la+propiedad\" alt=\"Imagen de la propiedad\" style=\"width: 100%; height: 100%; object-fit: cover;\" />
+                <div style=\"width: 100%; height: 180px; overflow: hidden; border-radius: 10px; background: #f2f2f2; display: flex; align-items: center; justify-content: center;">
+                    <img src=\"https://via.placeholder.com/480x180?text=Foto+de+la+propiedad\" alt=\"Imagen de la propiedad\" style=\"width: 100%; height: 100%; object-fit: cover;" />
                 </div>
                 <b style="display:block; margin-top:10px; font-size: 16px; color: #2196f3;"><i class="fas fa-${iconClass}"></i> ${property.type.toUpperCase()} en ${property.neighborhood}</b>
                 <div style="margin: 8px 0;">
@@ -340,7 +339,7 @@ function addAllMarkers() {
                     <i class="fas fa-map-marker-alt"></i> ${property.reference}
                 </div>
                 <div style="margin-top: 10px;">
-                    <a href=\"detalle_inmueble.html?id=${property.id}\" style=\"color: #1976d2; font-weight: 600; text-decoration: none;\">Más información…</a>
+                    <a href=\"/detalle-inmueble?id=${property.id}\" style=\"color: #1976d2; font-weight: 600; text-decoration: none;\">Más información…</a>
                 </div>
             </div>
         `;

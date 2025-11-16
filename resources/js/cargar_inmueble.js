@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Toggle servicios checkboxes
+    // Toggle  de servicios checkboxes
     toggleServicesBtn.addEventListener('click', () => {
         const isVisible = servicesCheckboxes.style.display !== 'none';
         servicesCheckboxes.style.display = isVisible ? 'none' : 'block';
@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, DOUBLE_CLICK_DELAY);
             
             return false;
-        }, true); // Usar fase de captura (true) para interceptar antes que Leaflet
+        }, true); // Usa fase de captura (true) para interceptar antes que Leaflet
 
         // Botón para centrar el mapa
         document.getElementById('centerMapBtn').addEventListener('click', () => {
@@ -512,7 +512,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         console.log('Payload listo para enviar al backend:', Object.fromEntries(formData.entries()));
-        alert('Publicación enviada (simulación). Integra con backend usando fetch/axios.');
+        alert('test / fetch/axios.');
         propertyForm.reset();
         priceInput.value = ''; // Limpiar el campo de precio formateado
         selectedImages = [];
@@ -544,4 +544,3 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Borrador guardado localmente (simulación).');
     });
 });
-

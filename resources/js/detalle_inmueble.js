@@ -234,4 +234,3 @@ function initMap() {
         })
     }).addTo(propertyMap).bindPopup(`<strong>${prop.neighborhood}</strong><br>${prop.reference}`);
 }
-

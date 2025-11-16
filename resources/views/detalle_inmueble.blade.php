@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="detalle_inmueble.css">
+    @vite(['resources/css/detalle_inmueble.css', 'resources/js/detalle_inmueble.js'])
 </head>
 <body>
     <header class="detail-header">
-        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al mapa</a>
+        <a href="{{ url('/') }}" class="back-link"><i class="fas fa-arrow-left"></i> Volver al mapa</a>
         <h1>Detalle de Propiedad</h1>
     </header>
 
@@ -112,7 +112,5 @@
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js"></script>
-    <script src="detalle_inmueble.js"></script>
 </body>
 </html>
-

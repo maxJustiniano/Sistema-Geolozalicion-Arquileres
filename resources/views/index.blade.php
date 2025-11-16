@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    @vite(['resources/css/styles.css', 'resources/js/map.js'])
 </head>
 <body>
     <header id="header">
@@ -20,7 +20,7 @@
         </div>
         <div class="header-actions">
             <button id="toggleFiltersBtn" class="header-btn"><i class="fas fa-filter"></i> Filtros</button>
-            <a href="cargar_inmueble.html" class="header-btn" style="text-decoration:none; display:inline-flex; align-items:center;"><i class="fas fa-upload"></i> Publicar</a>
+            <a href="{{ url('/cargar-inmueble') }}" class="header-btn" style="text-decoration:none; display:inline-flex; align-items:center;"><i class="fas fa-upload"></i> Publicar</a>
             <button id="loginBtn" class="header-btn"><i class="fas fa-user"></i> Iniciar Sesión</button>
         </div>
     </header>
@@ -147,6 +147,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-    <script src="map.js"></script>
 </body>
 </html>
