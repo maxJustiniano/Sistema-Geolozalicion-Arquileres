@@ -26,6 +26,6 @@ class CheckUserType
             return $next($request);
         }
 
-        return redirect('errors.403');
+        abort(403);
     }
 }

@@ -1,15 +1,15 @@
 // Tipos de propiedad disponibles para autocompletado
 const propertyTypes = [
-    { value: 'apartamento', label: 'Departamento' },
-    { value: 'casa_chalet', label: 'Casa / Chalet' },
-    { value: 'habitacion_particular', label: 'Habitación Particular' },
-    { value: 'alquiler', label: 'Terreno / Alquiler' },
-    { value: 'villa', label: 'Villa' },
-    { value: 'cabana', label: 'Cabaña' },
-    { value: 'albergue', label: 'Albergue' },
-    { value: 'hotel', label: 'Hotel' },
-    { value: 'residencial', label: 'Residencial' },
-    { value: 'camping', label: 'Camping' }
+    { value: '1', label: 'Departamento' },
+    { value: '2', label: 'Casa / Chalet' },
+    { value: '3', label: 'Habitación Particular' },
+    { value: '4', label: 'Terreno / Alquiler' },
+    { value: '5', label: 'Villa' },
+    { value: '6', label: 'Cabaña' },
+    { value: '7', label: 'Albergue' },
+    { value: '8', label: 'Hotel' },
+    { value: '9', label: 'Residencial' },
+    { value: '10', label: 'Camping' }
 ];
 
 const MAX_IMAGES = 10;

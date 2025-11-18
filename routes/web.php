@@ -12,6 +12,7 @@ use Laravel\Fortify\Features; // Controlador del register
 use App\Http\Controllers\IdentidadUsuario\RolesController;
 use App\Http\Controllers\IdentidadUsuario\UsuariosController;
 
+use App\Http\Controllers\IdentidadUsuario\PropiedadesController;
 
 // Routes predefinidos de livewire
 Route::get('/', function () {
@@ -48,11 +49,6 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 });
-
-// Rutas de Estaticas Personalizadas (Home y error)
-Route::get('/error404', function () {
-    return view('errors/404');
-})->name('error404');
 
 Route::get('/sobrenosotros', function () {
     return view('info');
@@ -108,6 +104,5 @@ Route::middleware('check_user_type:3')->group(function () {
 });
 
 
-Route::get('/403', function () {
-    return view('errors.403');
-})->name('403');
+// Ruta POST para procesar el envío del formulario (método store del controlador)
+Route::post('/cargar-inmueble', [PropiedadesController::class, 'store'])->name('propiedades.store');

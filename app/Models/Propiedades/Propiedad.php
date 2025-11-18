@@ -13,15 +13,18 @@ class Propiedad extends Model
     protected $fillable = [
         'id_usuario',
         'id_tipo_propiedad',
+        'id_tipo_estancia', // Nuevo campo de la migración
         'titulo',
         'descripcion',
-        'fecha_publicacion',
+        'servicios_incluye',
+        'latitud',
+        'longitud',
+        'precio_pesos',
+        'numero_habitaciones',
+        'numero_baños',
+        // Nota: Los servicios por checkbox deben manejarse en el controlador
+        // y/o guardarse como un JSON o en una tabla de muchos a muchos.
     ];
-
-    public function usuario()
-    {
-        return $this->belongsTo(Persona::class, 'id_usuario');
-    }
 
     public function tipoPropiedad()
     {

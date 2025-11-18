@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             //PersonasSeeder::class,
             //TipoPropiedadesSeeder::class,
             //PropiedadesSeeder::class,
+            TipoEstanciasSeeder::class,
         ]);
 
         User::create([
