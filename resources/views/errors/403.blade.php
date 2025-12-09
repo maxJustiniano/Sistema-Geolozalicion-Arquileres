@@ -1,6 +1,6 @@
 @component('components.layouts.app.error-page', [
-    'code' => '404', 
-    'title' => 'Página No Encontrada', 
-    'message' => 'Lo sentimos, no pudimos encontrar la página que estás buscando.',
+    'code' => '403', 
+    'title' => 'Acceso Denegado', 
+    'message' => 'Lo sentimos, no tienes permisos para acceder a esta página.',
 ])
 @endcomponent
