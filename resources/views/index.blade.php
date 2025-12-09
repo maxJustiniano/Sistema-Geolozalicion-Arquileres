@@ -41,12 +41,7 @@
                             <i class="fas fa-user"></i> Iniciar Sesión
                         </a>
 
-                        @if (Route::has('register'))
-                            {{-- REGISTER --}}
-                            <a href="{{ route('register') }}" class="header-btn">
-                                <i class="fas fa-user-plus"></i> Registrarse
-                            </a>
-                        @endif
+
                     @endauth
                 </div>
             @endif

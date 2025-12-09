@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tipos_filtros_propiedades', function (Blueprint $table) {
-            $table->id(); // id
-            $table->string('filtro_propiedad', 100)->unique(); // Filtro_propiedad (convertido a snake_case)
+        Schema::create('tipos_propiedades', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre', 100);
+            // CRUCIAL: Necesitas este slug para mapear a tu JS 'type' (casa, terreno, etc.)
+            $table->string('slug', 100)->unique();
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipos_filtros_propiedades');
+        Schema::dropIfExists('tipos_propiedades');
     }
 };

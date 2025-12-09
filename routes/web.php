@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('index');
 });
 
+use App\Http\Controllers\MapaController;
+
+Route::get('/propiedades-mapa', [MapaController::class, 'index']);
+
 Route::get('/cargar-inmueble', function () {
     return view('cargar_inmueble');
 });

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // En tu migración create_tipo_estancias_table.php
-        Schema::create('tipos_estancia', function (Blueprint $table) {
+        Schema::create('filtros', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 100);
-            // CRUCIAL: Necesitas este slug para mapear a tu JS 'accommodationType' (casa_chalet, alquiler, etc.)
-            $table->string('slug', 100)->unique();
+            $table->string('nombre');
+            $table->string('slug')->unique();
+            // CRUCIAL: Define a qué categoría de tu JS pertenece (facility, roomService, groupType)
+            $table->enum('categoria', ['facility', 'roomService', 'groupType', 'funType']);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipos_estancia');
+        Schema::dropIfExists('filtros');
     }
 };

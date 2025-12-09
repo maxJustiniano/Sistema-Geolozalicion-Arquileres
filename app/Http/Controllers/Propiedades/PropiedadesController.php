@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\IdentidadUsuario;
+namespace App\Http\Controllers\Propiedades;
 
 use App\Models\Propiedades\Propiedad;
 use Illuminate\Http\Request;

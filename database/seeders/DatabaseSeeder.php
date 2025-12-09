@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesUserSeeder::class,
             //PersonasSeeder::class,
-            //TipoPropiedadesSeeder::class,
-            //PropiedadesSeeder::class,
-            TipoEstanciasSeeder::class,
+            TipoSeeder::class,     // 1. Tipos y Estancias (Lookups)
+            FiltroSeeder::class,   // 2. Filtros (Lookups)
+            PropiedadSeeder::class // 3. Propiedades y la tabla pivote
         ]);
 
         User::create([

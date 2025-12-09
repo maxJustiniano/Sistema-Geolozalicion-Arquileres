@@ -9,39 +9,43 @@ class CreatePropiedadesTable extends Migration
     public function up(): void
     {
         Schema::create('propiedades', function (Blueprint $table) {
-            // Clave Primaria
-            $table->id('id');
-
-            // Claves Foráneas
+            $table->id();
             $table->foreignId('id_usuario')->constrained('users')->onDelete('cascade');
-            $table->foreignId('id_tipo_propiedad')->constrained('tipos_propiedades')->onDelete('cascade');
-            $table->foreignId('id_tipo_estancia')->constrained('tipos_estancia')->onDelete('cascade');
+            // Relaciones con las tablas de lookup (Tipo y Estancia)
+            $table->foreignId('id_tipo_propiedad')->constrained('tipos_propiedades');
+            $table->foreignId('id_tipo_estancia')->constrained('tipos_estancia');
 
-            // Campos de texto y descriptivos
             $table->string('titulo', 150);
             $table->text('descripcion');
-            $table->text('servicios_incluye')->nullable();
+            $table->string('barrio')->nullable(); // neighborhood
+            $table->string('referencia_ubicacion')->nullable(); // reference
 
-            // Ubicación (Latitud y Longitud)
             $table->decimal('latitud', 10, 7);
             $table->decimal('longitud', 10, 7);
+            $table->decimal('precio_pesos', 15, 2)->unsigned(); // price
 
-            // Precio (CAMBIO AQUÍ: Usamos decimal()->unsigned())
-            $table->decimal('precio_pesos', 15, 2)->unsigned(); // precio_pesos para valores positivos
+            $table->unsignedSmallInteger('numero_habitaciones'); // rooms
+            $table->unsignedSmallInteger('numero_baños'); // bathrooms
 
-            // Números
-            $table->unsignedSmallInteger('numero_habitaciones');
-            $table->unsignedSmallInteger('numero_baños');
+            // Booleanos para mapeo directo del JS
+            $table->boolean('tiene_patio')->default(false);
+            $table->boolean('amueblado')->default(false);
+            $table->boolean('tiene_parking')->default(false);
 
-            // Timestamps de Laravel
             $table->timestamps();
+        });
 
-            // Claves foráneas (si deseas relaciones explícitas, ya definidas con foreignId)
-            // NOTA: Estas líneas son redundantes si usaste foreignId()->constrained(), pero las mantengo por si la tabla 'tipo_propiedades' se llama diferente.
-            // Asegúrate que tu tabla sea 'users' y 'tipo_propiedades' (o 'tipos_propiedades').
-            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_tipo_propiedad')->references('id')->on('tipo_propiedades')->onDelete('cascade');
-            // Nota: Es posible que necesites ajustar el nombre de la tabla de referencia a 'tipos_propiedades' si así lo definiste.
+        // TABLA PIVOTE: filtro_propiedades (Relación Many-to-Many)
+        Schema::create('filtro_propiedades', function (Blueprint $table) {
+            $table->id();
+            // Claves foráneas sin primary key compuesta (usamos ID autoincremental)
+            $table->foreignId('id_propiedad')->constrained('propiedades')->onDelete('cascade');
+            $table->foreignId('id_tipo_filtro')->constrained('filtros')->onDelete('cascade');
+
+            // Opcional: asegura que no se dupliquen los filtros en una misma propiedad
+            $table->unique(['id_propiedad', 'id_tipo_filtro']);
+
+            $table->timestamps();
         });
     }
 
