@@ -12,8 +12,6 @@ use Laravel\Fortify\Features; // Controlador del register
 use App\Http\Controllers\IdentidadUsuario\RolesController;
 use App\Http\Controllers\IdentidadUsuario\UsuariosController;
 
-use App\Http\Controllers\IdentidadUsuario\PropiedadesController;
-
 // Routes predefinidos de livewire
 Route::get('/', function () {
     return view('index');
@@ -107,6 +105,5 @@ Route::middleware('check_user_type:3')->group(function () {
     Route::delete('/roles/{rol}/destroy', [RolesController::class, 'destroy'])->name('roles.destroy');
 });
 
-
-// Ruta POST para procesar el envío del formulario (método store del controlador)
-Route::post('/cargar-inmueble', [PropiedadesController::class, 'store'])->name('propiedades.store');
+use App\Http\Controllers\InmuebleController;
+Route::post('/cargar-inmueble', [InmuebleController::class, 'store'])->name('cargar-inmueble.store');

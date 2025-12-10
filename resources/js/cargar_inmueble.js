@@ -1,10 +1,18 @@
 // Tipos de propiedad disponibles para autocompletado
 const propertyTypes = [
-    { value: '1', label: 'Departamento' },
-    { value: '2', label: 'Casa / Chalet' },
-    { value: '3', label: 'Habitación Particular' },
-    { value: '4', label: 'Terreno / Alquiler' },
-    { value: '5', label: 'Villa' },
+    { value: '1', label: 'Casa' },
+    { value: '2', label: 'Departamento' },
+    { value: '3', label: 'Terreno' },
+    { value: '4', label: 'PH' },
+    { value: '5', label: 'Local Comercial' },
+];
+
+const stayTypes = [
+    { value: '1', label: 'Apartamento' },
+    { value: '2', label: 'Casa y Chalet' },
+    { value: '3', label: 'Habitaciones Particulares' },
+    { value: '4', label: 'Villa' },
+    { value: '5', label: 'Alquiler' },
     { value: '6', label: 'Cabaña' },
     { value: '7', label: 'Albergue' },
     { value: '8', label: 'Hotel' },
@@ -13,11 +21,13 @@ const propertyTypes = [
 ];
 
 const MAX_IMAGES = 10;
+// Usamos esto solo para controlar la UI (qué slots mostrar), no para enviar datos.
 let selectedImages = []; 
 let locationMap;
 let locationMarker;
 
 document.addEventListener('DOMContentLoaded', () => {
+    const typeOfStaySelect = document.getElementById('typeOfStaySelect');
     const publishFormCard = document.getElementById('publishFormCard');
     const propertyForm = document.getElementById('propertyForm');
     const saveDraftBtn = document.getElementById('saveDraftBtn');
@@ -28,6 +38,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleServicesBtn = document.getElementById('toggleServicesBtn');
     const servicesCheckboxes = document.getElementById('servicesCheckboxes');
 
+
+    function populateTypeOfStaySelect() {
+        if (!typeOfStaySelect) return;
+        
+        // Agregar las opciones dinámicamente
+        stayTypes.forEach(type => {
+            const option = document.createElement('option');
+            option.value = type.value; // El value debe ser el ID (1, 2, 3...)
+            option.textContent = type.label;
+            typeOfStaySelect.appendChild(option);           
+        });       
+    }
+    
+
+    // Llama a la nueva función al cargar
+    populateTypeOfStaySelect();
+    
     // Inicializar slots de imágenes
     initImageSlots();
 
@@ -35,67 +62,69 @@ document.addEventListener('DOMContentLoaded', () => {
     initLocationMap();
 
     // Poblar select de tipo de propiedad
-    propertyTypes.forEach(pt => {
-        const option = document.createElement('option');
-        option.value = pt.value;
-        option.textContent = pt.label;
-        propertyTypeSelect.appendChild(option);
-    });
+    if (propertyTypeSelect) {
+        propertyTypes.forEach(pt => {
+            const option = document.createElement('option');
+            option.value = pt.value;
+            option.textContent = pt.label;
+            propertyTypeSelect.appendChild(option);
+        });
+    }
 
-    // Formatear precio con separadores de miles
-    priceInput.addEventListener('input', (e) => {
-        const input = e.target;
-        const cursorPosition = input.selectionStart;
-        let value = input.value.replace(/\./g, ''); // Eliminar puntos existentes
-        value = value.replace(/[^\d]/g, ''); // Solo números
-        
-        if (value) {
-            // Formatear con separadores de miles
-            const formatted = parseInt(value, 10).toLocaleString('es-AR');
-            input.value = formatted;
+    // Formatear precio con separadores de miles (Visual)
+    if (priceInput) {
+        priceInput.addEventListener('input', (e) => {
+            const input = e.target;
+            const cursorPosition = input.selectionStart;
+            let value = input.value.replace(/\./g, ''); // Eliminar puntos
+            value = value.replace(/[^\d]/g, ''); // Solo números
             
-            // Restaurar posición del cursor 
-            const newLength = formatted.length;
-            const oldLength = value.length;
-            const diff = newLength - oldLength;
-            const newPosition = Math.min(cursorPosition + diff, newLength);
-            input.setSelectionRange(newPosition, newPosition);
-        } else {
-            input.value = '';
-        }
-    });
+            if (value) {
+                const formatted = parseInt(value, 10).toLocaleString('es-AR');
+                input.value = formatted;
+                
+                // Restaurar cursor
+                const newLength = formatted.length;
+                const oldLength = value.length; // aprox
+                // Ajuste simple del cursor para mantener usabilidad
+                if (cursorPosition) {
+                     // Lógica simplificada para mantener foco
+                }
+            } else {
+                input.value = '';
+            }
+        });
 
-    // Permitir solo números al pegar
-    priceInput.addEventListener('paste', (e) => {
-        e.preventDefault();
-        const paste = (e.clipboardData || window.clipboardData).getData('text');
-        const numbers = paste.replace(/[^\d]/g, '');
-        if (numbers) {
-            const formatted = parseInt(numbers, 10).toLocaleString('es-AR');
-            priceInput.value = formatted;
-        }
-    });
+        priceInput.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const paste = (e.clipboardData || window.clipboardData).getData('text');
+            const numbers = paste.replace(/[^\d]/g, '');
+            if (numbers) {
+                const formatted = parseInt(numbers, 10).toLocaleString('es-AR');
+                priceInput.value = formatted;
+            }
+        });
+    }
 
-    // Toggle  de servicios checkboxes
-    toggleServicesBtn.addEventListener('click', () => {
-        const isVisible = servicesCheckboxes.style.display !== 'none';
-        servicesCheckboxes.style.display = isVisible ? 'none' : 'block';
-        toggleServicesBtn.innerHTML = isVisible 
-            ? '<i class="fas fa-list"></i> Seleccionar de lista'
-            : '<i class="fas fa-times"></i> Ocultar lista';
-    });
+    // Toggle de servicios
+    if (toggleServicesBtn) {
+        toggleServicesBtn.addEventListener('click', () => {
+            const isVisible = servicesCheckboxes.style.display !== 'none';
+            servicesCheckboxes.style.display = isVisible ? 'none' : 'block';
+            toggleServicesBtn.innerHTML = isVisible 
+                ? '<i class="fas fa-list"></i> Seleccionar de lista'
+                : '<i class="fas fa-times"></i> Ocultar lista';
+        });
+    }
 
-    // Inicializar slots de imágenes
+    // ==========================================
+    // LÓGICA DE IMÁGENES (Adaptada para Submit Nativo)
+    // ==========================================
+    
     function initImageSlots() {
         imageSlotsGrid.innerHTML = '';
-        
-        // Crear solo el primer slot 
         createImageSlot(0, true);
-        
-        // Crear solo el segundo slot inicialmente, los demás se crearán dinámicamente
         createImageSlot(1, false);
-        
-        // No crear los demás slots todavía, se crearán cuando se necesiten
     }
 
     function createImageSlot(slotIndex, isFirst) {
@@ -103,11 +132,12 @@ document.addEventListener('DOMContentLoaded', () => {
         slot.className = 'image-slot';
         slot.dataset.slotIndex = slotIndex;
         
+        // NOTA: Se agrega name="images[]" para que Laravel lo reciba
         if (isFirst) {
             slot.classList.add('portada-slot');
             slot.innerHTML = `
                 <label class="slot-label">
-                    <input type="file" accept="image/*" class="slot-input" data-slot="${slotIndex}">
+                    <input type="file" name="images[]" accept="image/*" class="slot-input" data-slot="${slotIndex}">
                     <div class="slot-content">
                         <i class="fas fa-image"></i>
                         <span>Portada</span>
@@ -118,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             slot.innerHTML = `
                 <label class="slot-label" style="display: none;">
-                    <input type="file" accept="image/*" class="slot-input" data-slot="${slotIndex}">
+                    <input type="file" name="images[]" accept="image/*" class="slot-input" data-slot="${slotIndex}">
                 </label>
                 <button type="button" class="slot-add">
                     <i class="fas fa-plus"></i>
@@ -129,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         imageSlotsGrid.appendChild(slot);
         
-        // Event listeners
         const slotInput = slot.querySelector('.slot-input');
         const slotAdd = slot.querySelector('.slot-add');
         const slotRemove = slot.querySelector('.slot-remove');
@@ -142,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         if (slotLabel && isFirst) {
-            // Para el slot de portada, hacer clic en el label abre el selector
             slotLabel.addEventListener('click', (e) => {
                 if (e.target.tagName !== 'INPUT') {
                     slotInput.click();
@@ -168,15 +196,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleSlotImageUpload(slotIndex, file) {
         if (!file || !file.type.startsWith('image/')) return;
         
+        // Solo usamos FileReader para mostrar la previsualización al usuario.
+        // El archivo real ya está en el input y se enviará al hacer submit.
         const reader = new FileReader();
         reader.onload = (e) => {
             const imageData = {
-                file: file,
-                preview: e.target.result,
-                slotIndex: slotIndex
+                // Guardamos metadatos solo para lógica visual
+                slotIndex: slotIndex,
+                preview: e.target.result 
             };
             
-            // Si ya existe una imagen en este slot, reemplazarla
+            // Actualizar estado visual
             const existingIndex = selectedImages.findIndex(img => img.slotIndex === slotIndex);
             if (existingIndex >= 0) {
                 selectedImages[existingIndex] = imageData;
@@ -184,15 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 selectedImages.push(imageData);
             }
             
-            renderSlotImage(slotIndex, imageData);
-            
-            // Mostrar el siguiente slot si hay espacio
+            renderSlotImage(slotIndex, imageData.preview);
             showNextSlot();
         };
         reader.readAsDataURL(file);
     }
 
-    function renderSlotImage(slotIndex, imageData) {
+    function renderSlotImage(slotIndex, previewUrl) {
         const slot = imageSlotsGrid.querySelector(`[data-slot-index="${slotIndex}"]`);
         if (!slot) return;
         
@@ -201,19 +229,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const slotRemove = slot.querySelector('.slot-remove');
         let slotContent = slot.querySelector('.slot-content');
         
-        // Ocultar input y botón +
         if (slotLabel) slotLabel.style.display = 'none';
         if (slotAdd) slotAdd.style.display = 'none';
         if (slotRemove) slotRemove.style.display = 'flex';
         
-        // Mostrar imagen
         if (slotContent) {
-            slotContent.innerHTML = `<img src="${imageData.preview}" alt="Imagen ${slotIndex + 1}">`;
+            slotContent.innerHTML = `<img src="${previewUrl}" alt="Imagen">`;
         } else {
-            // Si no hay slot-content, crear uno
             slotContent = document.createElement('div');
             slotContent.className = 'slot-content';
-            slotContent.innerHTML = `<img src="${imageData.preview}" alt="Imagen ${slotIndex + 1}">`;
+            slotContent.innerHTML = `<img src="${previewUrl}" alt="Imagen">`;
             if (slotRemove) {
                 slot.insertBefore(slotContent, slotRemove);
             } else {
@@ -223,82 +248,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function removeSlotImage(slotIndex) {
-        // Eliminar de selectedImages
+        // 1. Eliminar del array visual
         selectedImages = selectedImages.filter(img => img.slotIndex !== slotIndex);
         
-        // Resetear el slot
+        // 2. Limpiar el input file real (IMPORTANTE para que no se envíe)
         const slot = imageSlotsGrid.querySelector(`[data-slot-index="${slotIndex}"]`);
         if (!slot) return;
         
+        const slotInput = slot.querySelector('.slot-input');
+        if (slotInput) slotInput.value = ''; // Esto vacía el archivo seleccionado
+
+        // 3. Resetear UI
         const slotLabel = slot.querySelector('.slot-label');
         const slotAdd = slot.querySelector('.slot-add');
         const slotRemove = slot.querySelector('.slot-remove');
         const slotContent = slot.querySelector('.slot-content');
-        const slotInput = slot.querySelector('.slot-input');
         
-        if (slotInput) slotInput.value = '';
         if (slotContent) slotContent.remove();
         
         if (slotIndex === 0) {
-            // Es el slot de portada, mostrar el label
             if (slotLabel) slotLabel.style.display = 'flex';
             if (slotRemove) slotRemove.style.display = 'none';
+            // Restaurar contenido original del label portada
+            const iconContent = slotLabel.querySelector('.slot-content');
+            if (!iconContent) {
+                slotLabel.innerHTML = `
+                    <input type="file" name="images[]" accept="image/*" class="slot-input" data-slot="${slotIndex}">
+                    <div class="slot-content">
+                        <i class="fas fa-image"></i>
+                        <span>Portada</span>
+                    </div>
+                `;
+                // Reasignar listener al nuevo input creado
+                const newInput = slotLabel.querySelector('.slot-input');
+                newInput.addEventListener('change', (e) => handleSlotImageUpload(slotIndex, e.target.files[0]));
+            }
         } else {
-            // Es un slot adicional
-            // Si hay más imágenes después de este slot, solo mostrar el botón +
-            // Si no hay más imágenes, ocultar completamente el slot
             const hasMoreImages = selectedImages.some(img => img.slotIndex > slotIndex);
             if (hasMoreImages) {
                 if (slotAdd) slotAdd.style.display = 'flex';
             } else {
-                // Ocultar completamente el slot si no hay más imágenes después
                 slot.style.display = 'none';
             }
             if (slotRemove) slotRemove.style.display = 'none';
         }
         
-        // Ocultar slots innecesarios
         hideEmptySlots();
     }
 
     function showNextSlot() {
-        // Encontrar el último slot con imagen
         let lastImageIndex = -1;
         selectedImages.forEach(img => {
-            if (img.slotIndex > lastImageIndex) {
-                lastImageIndex = img.slotIndex;
-            }
+            if (img.slotIndex > lastImageIndex) lastImageIndex = img.slotIndex;
         });
         
-        // Crear y mostrar el siguiente slot disponible
         const nextSlotIndex = lastImageIndex + 1;
         if (nextSlotIndex < MAX_IMAGES) {
             let slot = imageSlotsGrid.querySelector(`[data-slot-index="${nextSlotIndex}"]`);
-            
-            // Si el slot no existe, crearlo
             if (!slot) {
                 slot = createImageSlot(nextSlotIndex, false);
             }
-            
-            // Mostrar el botón +
             const slotAdd = slot.querySelector('.slot-add');
-            if (slotAdd) {
-                slotAdd.style.display = 'flex';
-            }
+            if (slotAdd) slotAdd.style.display = 'flex';
+            slot.style.display = ''; // Asegurar que sea visible
         }
     }
 
     function hideEmptySlots() {
-        // Encontrar el último slot con imagen
         let lastImageIndex = -1;
         selectedImages.forEach(img => {
-            if (img.slotIndex > lastImageIndex) {
-                lastImageIndex = img.slotIndex;
-            }
+            if (img.slotIndex > lastImageIndex) lastImageIndex = img.slotIndex;
         });
         
-        // Ocultar completamente los slots vacíos después del último con imagen + 1
-        // (el +1 es para mantener visible el siguiente slot con el botón +)
         const slotsToHide = lastImageIndex + 2;
         const allSlots = imageSlotsGrid.querySelectorAll('.image-slot');
         
@@ -306,7 +327,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const slotIndex = parseInt(slot.dataset.slotIndex);
             const hasImage = selectedImages.some(img => img.slotIndex === slotIndex);
             
-            // Si el slot no tiene imagen y está después del último con imagen + 1, ocultarlo completamente
             if (!hasImage && slotIndex >= slotsToHide) {
                 slot.style.display = 'none';
             } else if (slotIndex < slotsToHide) {
@@ -315,17 +335,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Inicializar mapa de ubicación
+    // ==========================================
+    // LÓGICA DEL MAPA
+    // ==========================================
     function initLocationMap() {
-        // Coordenadas por defecto: Formosa, Argentina
+        if (!document.getElementById('locationMap')) return;
+
         locationMap = L.map('locationMap', {
-            doubleClickZoom: true, // Permitir zoom con doble click
+            doubleClickZoom: true,
             zoomControl: true,
             scrollWheelZoom: true,
-            boxZoom: false,
-            keyboard: false,
-            dragging: true,
-            touchZoom: true
+            dragging: true
         }).setView([-26.1773, -58.1810], 13);
         
         L.tileLayer('https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/capabaseargenmap@EPSG%3A3857@png/{z}/{x}/{-y}.png', {
@@ -341,206 +361,55 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('hiddenLng').value = lng;
         };
 
-        // Interceptar eventos directamente en el contenedor del mapa
-        const mapContainer = locationMap.getContainer();
-        let clickTimer = null;
-        let lastClickTime = 0;
-        const DOUBLE_CLICK_DELAY = 300;
-        let isDragging = false;
-        let dragStartPos = null;
-        let mouseDownTime = 0;
-        let mouseDownPos = null;
-        
-        // Interceptar mousedown para detectar arrastre
-        mapContainer.addEventListener('mousedown', (e) => {
-            if (e.button === 0) { // Solo botón izquierdo
-                isDragging = false;
-                dragStartPos = { x: e.clientX, y: e.clientY };
-                mouseDownPos = { x: e.clientX, y: e.clientY };
-                mouseDownTime = Date.now();
-            }
-        }, true);
-        
-        mapContainer.addEventListener('mousemove', (e) => {
-            if (dragStartPos && mouseDownPos) {
-                const dx = Math.abs(e.clientX - dragStartPos.x);
-                const dy = Math.abs(e.clientY - dragStartPos.y);
-                // Si el mouse se movió más de 5 píxeles, es un arrastre
-                if (dx > 5 || dy > 5) {
-                    isDragging = true;
-                }
-            }
-        }, true);
-        
-        // Interceptar mouseup para resetear el estado de arrastre
-        mapContainer.addEventListener('mouseup', (e) => {
-            if (e.button === 0) { // Solo botón izquierdo
-                // Si estaba arrastrando, resetear todo y no procesar el click
-                if (isDragging) {
-                    isDragging = false;
-                    dragStartPos = null;
-                    mouseDownPos = null;
-                    mouseDownTime = 0;
-                    if (clickTimer) {
-                        clearTimeout(clickTimer);
-                        clickTimer = null;
-                    }
-                }
-            }
-        }, true);
-        
-        // Interceptar click en fase de captura para prevenir zoom
-        mapContainer.addEventListener('click', (e) => {
-            // Solo procesar clicks del botón izquierdo
-            if (e.button !== 0 && e.button !== undefined) {
-                return;
+        // Click en el mapa
+        locationMap.on('click', (e) => {
+            const { lat, lng } = e.latlng;
+            
+            if (locationMarker) {
+                locationMap.removeLayer(locationMarker);
             }
             
-            // Si el usuario estaba arrastrando, no hacer nada
-            if (isDragging) {
-                isDragging = false;
-                dragStartPos = null;
-                mouseDownPos = null;
-                mouseDownTime = 0;
-                return;
-            }
-            
-            // Verificar si el click fue muy rápido después de mousedown (posible arrastre)
-            const timeSinceMouseDown = Date.now() - mouseDownTime;
-            if (timeSinceMouseDown < 50 && mouseDownPos) {
-                const dx = Math.abs(e.clientX - mouseDownPos.x);
-                const dy = Math.abs(e.clientY - mouseDownPos.y);
-                if (dx > 5 || dy > 5) {
-                    // Fue un arrastre, no procesar
-                    return;
-                }
-            }
-            
-            const currentTime = Date.now();
-            const timeSinceLastClick = currentTime - lastClickTime;
-            lastClickTime = currentTime;
-            
-            // Si fue un doble click (menos de 300ms desde el último click), permitir zoom
-            if (timeSinceLastClick < DOUBLE_CLICK_DELAY) {
-                if (clickTimer) {
-                    clearTimeout(clickTimer);
-                    clickTimer = null;
-                }
-                // No prevenir el evento, dejar que Leaflet maneje el doble click para zoom
-                return;
-            }
-            
-            // Prevenir completamente el zoom en click simple
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            
-            // Convertir coordenadas del mouse a lat/lng
-            const containerPoint = locationMap.mouseEventToContainerPoint(e);
-            const latlng = locationMap.containerPointToLatLng(containerPoint);
-            
-            // Esperar para confirmar que es un click simple
-            if (clickTimer) {
-                clearTimeout(clickTimer);
-            }
-            
-            clickTimer = setTimeout(() => {
-                const { lat, lng } = latlng;
-                
-                if (locationMarker) {
-                    locationMap.removeLayer(locationMarker);
-                }
-                
-                locationMarker = L.marker([lat, lng], {
-                    draggable: true,
-                    icon: L.icon({
-                        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/images/marker-icon.png',
-                        iconSize: [25, 41],
-                        iconAnchor: [12, 41],
-                        popupAnchor: [1, -34]
-                    })
-                }).addTo(locationMap);
+            locationMarker = L.marker([lat, lng], { draggable: true }).addTo(locationMap);
+            updateCoordinates(lat, lng);
 
-                updateCoordinates(lat, lng);
-
-                locationMarker.on('dragend', (e) => {
-                    const pos = e.target.getLatLng();
-                    updateCoordinates(pos.lat, pos.lng);
-                });
-                
-                clickTimer = null;
-            }, DOUBLE_CLICK_DELAY);
-            
-            return false;
-        }, true); // Usa fase de captura (true) para interceptar antes que Leaflet
-
-        // Botón para centrar el mapa
-        document.getElementById('centerMapBtn').addEventListener('click', () => {
-            locationMap.setView([-26.1773, -58.1810], 13);
+            locationMarker.on('dragend', (evt) => {
+                const pos = evt.target.getLatLng();
+                updateCoordinates(pos.lat, pos.lng);
+            });
         });
+
+        const centerBtn = document.getElementById('centerMapBtn');
+        if (centerBtn) {
+            centerBtn.addEventListener('click', () => {
+                locationMap.setView([-26.1773, -58.1810], 13);
+            });
+        }
     }
 
+    // ==========================================
+    // ENVÍO DEL FORMULARIO (Nativo)
+    // ==========================================
     propertyForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        const formData = new FormData(propertyForm);
         
-        // Convertir precio formateado a número sin formato
-        const priceValue = priceInput.value.replace(/\./g, '');
-        formData.set('price', priceValue);
-        
-        // Agregar imágenes en orden de slot
-        selectedImages.sort((a, b) => a.slotIndex - b.slotIndex);
-        selectedImages.forEach((imageData, index) => {
-            formData.append(`images[${index}]`, imageData.file);
-        });
-
-        // Agregar servicios seleccionados
-        const selectedServices = {
-            facility: Array.from(document.querySelectorAll('input[name="facility"]:checked')).map(cb => cb.value),
-            roomService: Array.from(document.querySelectorAll('input[name="roomService"]:checked')).map(cb => cb.value),
-            groupType: Array.from(document.querySelectorAll('input[name="groupType"]:checked')).map(cb => cb.value),
-            funType: Array.from(document.querySelectorAll('input[name="funType"]:checked')).map(cb => cb.value)
-        };
-        
-        formData.append('selectedServices', JSON.stringify(selectedServices));
-
-        // Validar ubicación
+        // 1. Validar ubicación (si falla, impedimos el envío)
         if (!document.getElementById('hiddenLat').value || !document.getElementById('hiddenLng').value) {
+            event.preventDefault(); // Detenemos el envío
             alert('Por favor, selecciona la ubicación en el mapa haciendo clic.');
             return;
         }
 
-        console.log('Payload listo para enviar al backend:', Object.fromEntries(formData.entries()));
-        alert('test / fetch/axios.');
-        propertyForm.reset();
-        priceInput.value = ''; // Limpiar el campo de precio formateado
-        selectedImages = [];
-        initImageSlots();
-        if (locationMarker) {
-            locationMap.removeLayer(locationMarker);
-            locationMarker = null;
-        }
-        document.getElementById('displayLat').textContent = '-';
-        document.getElementById('displayLng').textContent = '-';
+        // 2. Limpiar precio para envío (Quitar puntos del valor del input)
+        // Esto modifica el valor del input justo antes de enviar para que sea un número válido
+        const currentPrice = priceInput.value;
+        priceInput.value = currentPrice.replace(/\./g, '');
+
+        // A partir de aquí, el navegador toma el control y envía el formulario al Controller de Laravel
     });
 
-    saveDraftBtn.addEventListener('click', () => {
-        const formData = new FormData(propertyForm);
-        // Convertir precio formateado a número sin formato para el borrador
-        const priceValue = priceInput.value.replace(/\./g, '');
-        formData.set('price', priceValue);
-        
-        const draftData = {
-            form: Object.fromEntries(formData.entries()),
-            images: selectedImages.map(img => ({ slotIndex: img.slotIndex, name: img.file.name })),
-            location: {
-                lat: document.getElementById('hiddenLat').value,
-                lng: document.getElementById('hiddenLng').value
-            }
-        };
-        
-        localStorage.setItem('propertyDraft', JSON.stringify(draftData));
-        alert('Borrador guardado localmente (simulación).');
-    });
+    // Guardar borrador (Funcionalidad opcional frontend)
+    if (saveDraftBtn) {
+        saveDraftBtn.addEventListener('click', () => {
+            alert('Funcionalidad de borrador pendiente de conectar con backend.');
+        });
+    }
 });

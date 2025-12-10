@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany; // Importación necesaria
 
 class Propiedad extends Model
 {
@@ -17,19 +18,20 @@ class Propiedad extends Model
      * Los atributos que se pueden asignar de forma masiva.
      */
     protected $fillable = [
+        // ... (resto de fillable)
         'id_usuario', 
         'id_tipo_propiedad', 
         'id_tipo_estancia',
         'titulo',
         'descripcion',
-        'barrio', // Necesario para 'neighborhood'
-        'referencia_ubicacion', // Necesario para 'reference'
+        'barrio',
+        'referencia_ubicacion',
         'latitud',
         'longitud',
-        'precio_pesos', // Tu nombre de columna
-        'numero_habitaciones', // Tu nombre de columna
-        'numero_baños', // Tu nombre de columna
-        'tiene_patio', // Si lo incluyes en la BD
+        'precio_pesos',
+        'numero_habitaciones',
+        'numero_baños',
+        'tiene_patio',
         'amueblado',
         'tiene_parking',
     ];
@@ -38,6 +40,7 @@ class Propiedad extends Model
      * Casteo de atributos para asegurar tipos correctos.
      */
     protected $casts = [
+        // ... (resto de casts)
         'precio_pesos' => 'float',
         'latitud' => 'float',
         'longitud' => 'float',
@@ -63,6 +66,15 @@ class Propiedad extends Model
     public function tipoEstancia(): BelongsTo
     {
         return $this->belongsTo(TipoEstancia::class, 'id_tipo_estancia');
+    }
+
+    /**
+     * Relación One-to-Many: Una propiedad puede tener muchas imágenes.
+     */
+    public function imagenes(): HasMany
+    {
+        // La clave foránea en imagenes_propiedades es 'id_propiedad'
+        return $this->hasMany(ImagenPropiedad::class, 'id_propiedad');
     }
 
     /**
