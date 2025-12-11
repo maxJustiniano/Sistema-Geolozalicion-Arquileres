@@ -44,6 +44,7 @@ class PropiedadMapResource extends JsonResource
             // Calculados dinámicamente según si existen los filtros específicos
             'hasPool' => $filtros->contains('slug', 'piscina'),
             'petsAllowed' => $filtros->contains('slug', 'admite_mascotas'),
+            'funType' => $filtros->where('categoria', 'funType')->pluck('slug')->values(),
 
             // Coordenadas (mapeo de nombres: latitud -> lat)
             'lat' => (float) $this->latitud,

@@ -36,7 +36,7 @@
                                 <div class="w-8 h-8 bg-blue-custom rounded-lg flex items-center justify-center">
                                     <span class="text-white font-semibold text-sm">P</span>
                                 </div>
-                                <span class="text-xl font-semibold">Propia</span>
+                                <span class="text-xl font-semibold">Propiedades Formosa</span>
                             </div>
                         </div>
                         <h2 class="text-2xl font-semibold mb-3">Bienvenido a </h2>

@@ -43,7 +43,10 @@ class FiltroSeeder extends Seeder
             
             // CATEGORIA: funType (Para pasarlo bien - Solo 'piscina' aparece en tus datos como un funType distinto)
             ['slug' => 'piscina', 'nombre' => 'Piscina', 'categoria' => 'funType'],
+            ['slug' => 'sala_juegos', 'nombre' => 'Sala de juegos', 'categoria' => 'funType'],
+            ['slug' => 'cine', 'nombre' => 'Cine', 'categoria' => 'funType'],
         ];
+
 
         foreach ($filtrosData as $filtro) {
             Filtro::firstOrCreate(['slug' => $filtro['slug']], $filtro);

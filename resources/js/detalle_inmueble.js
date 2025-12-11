@@ -160,6 +160,7 @@ function initPropertyDetail(prop) {
     document.getElementById('hasParking').textContent = prop.hasParking ? 'Sí' : 'No';
     document.getElementById('amueblado').textContent = prop.hasAmueblado ? 'Sí' : 'No';
 
+    console.dir(prop);
     // 2. Inicializar galería
     if (propertyImages.length > 0) {
         // La primera imagen se carga automáticamente
