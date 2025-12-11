@@ -22,7 +22,7 @@
 
         <flux:sidebar.nav>
             <flux:sidebar.item icon="map" :href="route('mapa')">Mapa</flux:sidebar.item>
-            @if (Auth::check() && Auth::user()->isAdmin() || Auth::check() && Auth::user()->isPropietario())
+            @if (Auth::check() && Auth::user()->isAdmin())
                 <flux:sidebar.group expandable
                     :expanded="request()->routeIs('usuarios.index') || request()->routeIs('roles.index')" icon="user"
                     heading="Gestion de Usuarios" class="grid">
@@ -31,6 +31,10 @@
                     <flux:navlist.item icon="user-group" :href="route('roles.index')"
                         :current="request()->routeIs('roles.index')" wire:navigate>Tipo Usuarios</flux:navlist.item>
                 </flux:sidebar.group>
+                
+            @endif
+            
+            @if (Auth::check() && Auth::user()->isAdmin() || Auth::check() && Auth::user()->isPropietario())
                 <flux:sidebar.group expandable
                     :expanded="request()->routeIs('propiedades.index') || request()->routeIs('propiedades.create') || request()->routeIs('propiedades.edit')"
                     icon="home" heading="Propiedades" class="grid">
@@ -39,7 +43,6 @@
                     </flux:navlist.item>
                 </flux:sidebar.group>
             @endif
-            
         </flux:sidebar.nav>
 
 
