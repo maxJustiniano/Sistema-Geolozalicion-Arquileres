@@ -10,7 +10,7 @@
         <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">Encuentra y alquila propiedades
             fácilmente filtrando por ubicación, precio y características para descubrir el lugar perfecto para vivir.</p>
         <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-            <a href="#"
+            <a href="{{route('inicio')}}"
                 class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                 Ver Alquileres
                 <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@
                         d="M1 5h12m0 0L9 1m4 4L9 9" />
                 </svg>
             </a>
-            <a href="#"
+            <a href="{{ url('/cargar-inmueble') }}"
                 class="inline-flex justify-center items-center py-3 px-5 sm:ms-4 text-base font-medium text-center rounded-lg border
                        text-white border-white hover:bg-white hover:text-gray-900 focus:ring-4 focus:ring-gray-400"> {{-- Ajustes aquí para el contraste --}}
                 Publicar Propiedad
