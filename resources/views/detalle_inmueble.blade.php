@@ -11,7 +11,7 @@
 </head>
 <body>
     <header class="detail-header">
-        <a href="{{ url('/') }}" class="back-link"><i class="fas fa-arrow-left"></i> Volver al mapa</a>
+        <a href="{{ url('/inicio') }}" class="back-link"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
         <h1>Detalle de Propiedad</h1>
     </header>
 
