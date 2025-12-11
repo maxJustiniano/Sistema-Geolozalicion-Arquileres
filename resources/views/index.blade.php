@@ -62,7 +62,7 @@
                     Casas y Chalets</label>
                 <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="albergue">
                     Albergues</label>
-                <label class="checkbox-label"><input type="checkbox" class="accommodation-type"
+                <label class="checkbox-label" style="flex-wrap: nowrap;"><input type="checkbox" class="accommodation-type"
                         value="habitacion_particular"> Habitaciones en casas particulares</label>
                 <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="villa">
                     Villas</label>
@@ -102,9 +102,9 @@
                     Jacuzzi</label>
                 <label class="checkbox-label"><input type="checkbox" class="facility" value="wifi_gratis"> Wifi
                     Gratis</label>
-                <label class="checkbox-label"><input type="checkbox" class="facility"
+                <label class="checkbox-label" style="flex-wrap: nowrap;"><input type="checkbox" class="facility"
                         value="estacion_carga_vehiculos_electricos"> Estación de carga de vehículos eléctricos</label>
-                <label class="checkbox-label"><input type="checkbox" class="facility"
+                <label class="checkbox-label" style="flex-wrap: nowrap;"><input type="checkbox" class="facility"
                         value="adaptado_sillas_ruedas"> Adaptado para sillas de ruedas</label>
             </div>
         </div>
@@ -134,7 +134,7 @@
                     Chimenea</label>
                 <label class="checkbox-label"><input type="checkbox" class="room-service" value="vistas_montana">
                     Vistas a la montaña</label>
-                <label class="checkbox-label"><input type="checkbox" class="room-service" value="acceso_ascensor">
+                <label class="checkbox-label" style="flex-wrap: nowrap;"><input type="checkbox" class="room-service" value="acceso_ascensor">
                     Acceso a pisos superiores en ascensor</label>
                 <label class="checkbox-label"><input type="checkbox" class="room-service" value="tv_pantalla_plana">
                     TV de pantalla plana</label>

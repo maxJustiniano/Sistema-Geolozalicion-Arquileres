@@ -176,7 +176,7 @@
                     </div>
                 </label>
 
-                <label class="full-width">
+                <div class="full-width">
                     <span>Ubicación en el mapa</span>
                     <p class="helper-text">Haz clic en el mapa para marcar la ubicación de tu propiedad. Puedes
                         arrastrar el marcador para ajustar la posición.</p>
@@ -189,7 +189,7 @@
                     </div>
                     <input type="hidden" name="lat" id="hiddenLat" required>
                     <input type="hidden" name="lng" id="hiddenLng" required>
-                </label>
+                </div>
 
                 <h2>Galería de imágenes</h2>
                 <p class="helper-text">Puedes subir hasta 10 imágenes en formato JPG o PNG (máx. 8MB cada una). La

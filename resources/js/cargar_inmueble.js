@@ -341,18 +341,24 @@ document.addEventListener('DOMContentLoaded', () => {
     function initLocationMap() {
         if (!document.getElementById('locationMap')) return;
 
-        locationMap = L.map('locationMap', {
-            doubleClickZoom: true,
-            zoomControl: true,
-            scrollWheelZoom: true,
-            dragging: true
-        }).setView([-26.1773, -58.1810], 13);
-        
-        L.tileLayer('https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/capabaseargenmap@EPSG%3A3857@png/{z}/{x}/{-y}.png', {
-            minZoom: 10,
-            maxZoom: 18,
+        const formosaBounds = L.latLngBounds(
+            L.latLng(-26.25, -58.25),
+            L.latLng(-26.10, -58.05)
+        );
+        const argenmap = L.tileLayer('https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0.0/capabaseargenmap@EPSG%3A3857@png/{z}/{x}/{-y}.png', {
+            minZoom: 10, maxZoom: 18,
             attribution: '© IGN Argentina'
-        }).addTo(locationMap);
+        });
+        locationMap = L.map('locationMap', {
+            center: L.latLng(-26.1773, -58.1810),
+            zoom: 13,
+            minZoom: 11, maxZoom: 18,
+            zoomControl: true,
+            layers: [argenmap],
+            maxBounds: formosaBounds,
+            maxBoundsViscosity: 1.0
+        });
+        locationMap.fitBounds(formosaBounds, { padding: [20, 20] });
 
         const updateCoordinates = (lat, lng) => {
             document.getElementById('displayLat').textContent = lat.toFixed(6);
@@ -361,23 +367,24 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('hiddenLng').value = lng;
         };
 
-        // Click en el mapa
+        let skipNextClick = false;
+        locationMap.on('dragstart', () => { skipNextClick = true; });
+
         locationMap.on('click', (e) => {
+            if (skipNextClick) { skipNextClick = false; return; }
             const { lat, lng } = e.latlng;
-            
             if (locationMarker) {
                 locationMap.removeLayer(locationMarker);
             }
-            
             locationMarker = L.marker([lat, lng], { draggable: true }).addTo(locationMap);
             updateCoordinates(lat, lng);
-
             locationMarker.on('dragend', (evt) => {
                 const pos = evt.target.getLatLng();
                 updateCoordinates(pos.lat, pos.lng);
             });
         });
 
+        
         const centerBtn = document.getElementById('centerMapBtn');
         if (centerBtn) {
             centerBtn.addEventListener('click', () => {
