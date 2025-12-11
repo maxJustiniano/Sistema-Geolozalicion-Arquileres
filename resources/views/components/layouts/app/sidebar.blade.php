@@ -21,8 +21,8 @@
         </flux:navlist>
 
         <flux:sidebar.nav>
-            <flux:sidebar.item icon="map" href="#">Mapa</flux:sidebar.item>
-            @if (Auth::check() && Auth::user()->isAdmin())
+            <flux:sidebar.item icon="map" :href="route('mapa')">Mapa</flux:sidebar.item>
+            @if (Auth::check() && Auth::user()->isAdmin() || Auth::check() && Auth::user()->isPropietario())
                 <flux:sidebar.group expandable
                     :expanded="request()->routeIs('usuarios.index') || request()->routeIs('roles.index')" icon="user"
                     heading="Gestion de Usuarios" class="grid">
@@ -31,13 +31,15 @@
                     <flux:navlist.item icon="user-group" :href="route('roles.index')"
                         :current="request()->routeIs('roles.index')" wire:navigate>Tipo Usuarios</flux:navlist.item>
                 </flux:sidebar.group>
-                <flux:sidebar.group expandable :expanded="false" icon="home" heading="Propiedades"
-                    class="grid">
-                    <flux:navlist.item icon="user-group" href="#">Propietarios</flux:navlist.item>
-                    <flux:navlist.item icon="clipboard-document-list" href="#">Propiedades</flux:navlist.item>
-                    <flux:navlist.item icon="home-modern" href="#">Tipos de Propiedades</flux:navlist.item>
+                <flux:sidebar.group expandable
+                    :expanded="request()->routeIs('propiedades.index') || request()->routeIs('propiedades.create') || request()->routeIs('propiedades.edit')"
+                    icon="home" heading="Propiedades" class="grid">
+                    <flux:navlist.item icon="clipboard-document-list" :href="route('propiedades.index')"
+                        :current="request()->routeIs('propiedades.index')" wire:navigate>Propiedades
+                    </flux:navlist.item>
                 </flux:sidebar.group>
             @endif
+            
         </flux:sidebar.nav>
 
 

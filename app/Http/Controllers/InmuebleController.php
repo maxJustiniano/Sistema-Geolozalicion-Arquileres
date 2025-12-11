@@ -12,12 +12,12 @@ use App\Models\User; // Asumo que tienes este modelo para el usuario demo
 
 class InmuebleController extends Controller
 {
-    public function show(Propiedad $propiedad) 
+    public function show(Propiedad $propiedad)
     {
         // El Model Binding de Laravel (Propiedad $propiedad) se encarga de:
         // 1. Encontrar la propiedad basada en el valor de la URL (ej: /inmueble/1).
         // 2. Si la propiedad no existe, Laravel lanza automáticamente un error 404.
-        
+
         // Pasamos el objeto $propiedad a la vista 'detalle_inmueble'
         return view('detalle_inmueble', [
             'propiedad' => $propiedad
@@ -51,37 +51,20 @@ class InmuebleController extends Controller
         ]);
 
         // ===============================================
-        // A. LÓGICA DEL USUARIO DEMO
-        // ===============================================
-
-        // 1. Obtener el ID del rol de 'propietario'
-        $propietarioRole = DB::table('roles')->where('nombre_rol', 'propietario')->first();
-
-        if (!$propietarioRole) {
-            // Manejar error si el rol no existe (crucial para no fallar)
-            return back()->with('error', "Error: El rol 'propietario' no se encontró en la base de datos.");
-        }
-        $propietarioRoleId = $propietarioRole->id;
-
-        // 2. Crear un usuario dummy si no existe
-        $user = User::firstOrCreate(
-            ['email' => 'dummy@geolocalizacion.com'],
-            [
-                'id_rol' => $propietarioRoleId,
-                'name' => 'Usuario Demo',
-                'password' => bcrypt('password'),
-                'nombre_persona' => 'Demo',
-                'apellido_persona' => 'Propietario',
-            ]
-        );
-
-        // ===============================================
         // B. CREACIÓN DE LA PROPIEDAD
         // ===============================================
 
+        // ** Obtener el ID del usuario autenticado de forma segura **
+        $userId = auth()->id(); // Retorna el id del usuario que inició sesión.
+
+        if (is_null($userId)) {
+            // En caso de que se intente acceder sin estar autenticado (una buena práctica de seguridad)
+            return back()->with('error', 'Debe iniciar sesión para publicar una propiedad.')->withInput();
+        }
+
         // Mapear los datos de la Request a los campos del modelo Propiedad
         $propiedad = Propiedad::create([
-            'id_usuario' => $user->id,
+            'id_usuario' => $userId,
             'id_tipo_propiedad' => $request->accommodationType,
             'id_tipo_estancia' => $request->typeOfStay, // <--- CAMBIO CLAVE
             'titulo' => $request->title,

@@ -23,9 +23,11 @@
         </div>
         <div class="header-actions">
             <button id="toggleFiltersBtn" class="header-btn"><i class="fas fa-filter"></i> Filtros</button>
-            <a href="{{ url('/cargar-inmueble') }}" class="header-btn"
-                style="text-decoration:none; display:inline-flex; align-items:center;"><i class="fas fa-upload"></i>
-                Publicar</a>
+            @if ((Auth::check() && Auth::user()->isAdmin()) || (Auth::check() && Auth::user()->isPropietario()))
+                <a href="{{ url('/cargar-inmueble') }}" class="header-btn"
+                    style="text-decoration:none; display:inline-flex; align-items:center;"><i class="fas fa-upload"></i>
+                    Publicar</a>
+            @endif
             {{-- 2. Botones de Autenticación (Derecha) --}}
             @if (Route::has('login'))
                 <div class="flex items-center md:order-3 space-x-3 md:space-x-0 rtl:space-x-reverse justify-end gap-4">

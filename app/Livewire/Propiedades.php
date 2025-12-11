@@ -16,6 +16,11 @@ class Propiedades extends Component
     // LISTENER: Define qué métodos deben ejecutarse cuando se emite un evento específico.
     protected $listeners = ['searchUpdated' => 'applySearch'];
 
+    public $nombre_tabla = 'Gestión de Usuarios';
+    public $url_edit='usuarios.edit';
+    public $url_create='usuarios.create';
+    public $url_delet='usuarios.destroy';
+
     // Método que actualiza la propiedad y resetea la paginación
     public function applySearch($value)
     {

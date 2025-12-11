@@ -11,23 +11,17 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features; // Controlador del register
 use App\Http\Controllers\IdentidadUsuario\RolesController;
 use App\Http\Controllers\IdentidadUsuario\UsuariosController;
+use App\Http\Controllers\PropiedadController;
+use App\Http\Controllers\InmuebleController;
 
 // Routes predefinidos de livewire
 Route::get('/', function () {
     return view('index');
-});
+})->name('mapa');;
 
 use App\Http\Controllers\MapaController;
 
 Route::get('/propiedades-mapa', [MapaController::class, 'index']);
-
-Route::get('/cargar-inmueble', function () {
-    return view('cargar_inmueble');
-})->name('cargar-inmueble');
-
-Route::get('/detalle-inmueble', function () {
-    return view('detalle_inmueble');
-});
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -103,12 +97,31 @@ Route::middleware('check_user_type:3')->group(function () {
 
     // Ruta de Eliminación
     Route::delete('/roles/{rol}/destroy', [RolesController::class, 'destroy'])->name('roles.destroy');
+
+
+// ... otras rutas
+
+
+
 });
 
-use App\Http\Controllers\InmuebleController;
-Route::post('/cargar-inmueble', [InmuebleController::class, 'store'])->name('cargar-inmueble.store');
+// Rutas de Crud personas Personalizadas
+Route::middleware('check_user_type:1,3')->group(function () {
+    Route::resource('propiedades', PropiedadController::class)->parameters([
+        'propiedades' => 'propiedad', // Esto mapea el recurso 'propiedades' al parámetro 'propiedad'
+    ]);
 
+
+    Route::get('/cargar-inmueble', function () {
+        return view('cargar_inmueble');
+    })->name('cargar-inmueble');
+
+    Route::post('/cargar-inmueble', [InmuebleController::class, 'store'])->name('cargar-inmueble.store');
+});
+    
 // Ruta para ver el detalle de una propiedad.
 // {propiedad} le indica a Laravel que use el Propiedad Model Binding.
 Route::get('/inmueble/{propiedad}', [InmuebleController::class, 'show'])
     ->name('inmueble.show');
+
+

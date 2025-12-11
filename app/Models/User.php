@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use App\Models\IdentidadUsuario\Role;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -52,6 +53,19 @@ class User extends Authenticatable
         return $this->id_rol === 3;
     }
 
+    public function isPropietario(): bool
+    {
+        return $this->id_rol === 1; // O el ID que uses para Propietario
+    }
+
+    /**
+     * Verifica si el usuario es un inquilino (id_rol = 1).
+     */
+    public function isInquilino(): bool
+    {
+        return $this->id_rol === 2; // O el ID que uses para Inquilino
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -81,5 +95,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'id_rol');
     }
-
 }
