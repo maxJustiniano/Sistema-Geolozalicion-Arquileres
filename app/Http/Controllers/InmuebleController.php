@@ -132,7 +132,7 @@ class InmuebleController extends Controller
         // ===============================================
 
 
-        return redirect()->route('cargar-inmueble')
-            ->with('success', '¡Propiedad "' . $request['titulo'] . '" cargada con éxito!');
+        return back()
+            ->with('success', '¡Accion realizada con éxito!');
     }
 }

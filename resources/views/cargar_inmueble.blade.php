@@ -15,7 +15,7 @@
 <body>
     <header class="publish-header">
         <div class="header-left">
-            <a href="{{ url('/') }}" class="back-link"><i class="fas fa-arrow-left"></i> Volver al mapa</a>
+            <a href="{{ url()->previous() }}" class="back-link"><i class="fas fa-arrow-left"></i> Volver al mapa</a>
         </div>
         <div class="header-center-title">
             <span class="header-title-text">Sube tu propiedad</span>

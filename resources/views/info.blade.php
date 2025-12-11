@@ -1,4 +1,4 @@
-<x-layouts.app.navbar />
+<x-layouts.app.navbar title="Sobre nosotros" />
 
 <section
     class="bg-center bg-no-repeat bg-cover bg-gray-700 bg-blend-multiply" {{-- Agregado bg-cover y bg-gray-700 bg-blend-multiply --}}

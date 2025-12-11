@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Propiedades Formosa | {{ $title ?? 'Inicio' }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 @livewireStyles
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
