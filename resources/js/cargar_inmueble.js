@@ -22,7 +22,7 @@ const stayTypes = [
 
 const MAX_IMAGES = 10;
 // Usamos esto solo para controlar la UI (qué slots mostrar), no para enviar datos.
-let selectedImages = []; 
+let selectedImages = [];
 let locationMap;
 let locationMarker;
 
@@ -41,20 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populateTypeOfStaySelect() {
         if (!typeOfStaySelect) return;
-        
+
         // Agregar las opciones dinámicamente
         stayTypes.forEach(type => {
             const option = document.createElement('option');
             option.value = type.value; // El value debe ser el ID (1, 2, 3...)
             option.textContent = type.label;
-            typeOfStaySelect.appendChild(option);           
-        });       
+            typeOfStaySelect.appendChild(option);
+        });
     }
-    
+
 
     // Llama a la nueva función al cargar
     populateTypeOfStaySelect();
-    
+
     // Inicializar slots de imágenes
     initImageSlots();
 
@@ -78,17 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const cursorPosition = input.selectionStart;
             let value = input.value.replace(/\./g, ''); // Eliminar puntos
             value = value.replace(/[^\d]/g, ''); // Solo números
-            
+
             if (value) {
                 const formatted = parseInt(value, 10).toLocaleString('es-AR');
                 input.value = formatted;
-                
+
                 // Restaurar cursor
                 const newLength = formatted.length;
                 const oldLength = value.length; // aprox
                 // Ajuste simple del cursor para mantener usabilidad
                 if (cursorPosition) {
-                     // Lógica simplificada para mantener foco
+                    // Lógica simplificada para mantener foco
                 }
             } else {
                 input.value = '';
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleServicesBtn.addEventListener('click', () => {
             const isVisible = servicesCheckboxes.style.display !== 'none';
             servicesCheckboxes.style.display = isVisible ? 'none' : 'block';
-            toggleServicesBtn.innerHTML = isVisible 
+            toggleServicesBtn.innerHTML = isVisible
                 ? '<i class="fas fa-list"></i> Seleccionar de lista'
                 : '<i class="fas fa-times"></i> Ocultar lista';
         });
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // LÓGICA DE IMÁGENES (Adaptada para Submit Nativo)
     // ==========================================
-    
+
     function initImageSlots() {
         imageSlotsGrid.innerHTML = '';
         createImageSlot(0, true);
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const slot = document.createElement('div');
         slot.className = 'image-slot';
         slot.dataset.slotIndex = slotIndex;
-        
+
         // NOTA: Se agrega name="images[]" para que Laravel lo reciba
         if (isFirst) {
             slot.classList.add('portada-slot');
@@ -156,20 +156,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button type="button" class="slot-remove" style="display: none;"><i class="fas fa-times"></i></button>
             `;
         }
-        
+
         imageSlotsGrid.appendChild(slot);
-        
+
         const slotInput = slot.querySelector('.slot-input');
         const slotAdd = slot.querySelector('.slot-add');
         const slotRemove = slot.querySelector('.slot-remove');
         const slotLabel = slot.querySelector('.slot-label');
-        
+
         if (slotInput) {
             slotInput.addEventListener('change', (e) => {
                 handleSlotImageUpload(slotIndex, e.target.files[0]);
             });
         }
-        
+
         if (slotLabel && isFirst) {
             slotLabel.addEventListener('click', (e) => {
                 if (e.target.tagName !== 'INPUT') {
@@ -177,25 +177,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
-        
+
         if (slotAdd) {
             slotAdd.addEventListener('click', () => {
                 slotInput.click();
             });
         }
-        
+
         if (slotRemove) {
             slotRemove.addEventListener('click', () => {
                 removeSlotImage(slotIndex);
             });
         }
-        
+
         return slot;
     }
 
     function handleSlotImageUpload(slotIndex, file) {
         if (!file || !file.type.startsWith('image/')) return;
-        
+
         // Solo usamos FileReader para mostrar la previsualización al usuario.
         // El archivo real ya está en el input y se enviará al hacer submit.
         const reader = new FileReader();
@@ -203,9 +203,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const imageData = {
                 // Guardamos metadatos solo para lógica visual
                 slotIndex: slotIndex,
-                preview: e.target.result 
+                preview: e.target.result
             };
-            
+
             // Actualizar estado visual
             const existingIndex = selectedImages.findIndex(img => img.slotIndex === slotIndex);
             if (existingIndex >= 0) {
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 selectedImages.push(imageData);
             }
-            
+
             renderSlotImage(slotIndex, imageData.preview);
             showNextSlot();
         };
@@ -223,16 +223,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderSlotImage(slotIndex, previewUrl) {
         const slot = imageSlotsGrid.querySelector(`[data-slot-index="${slotIndex}"]`);
         if (!slot) return;
-        
+
         const slotLabel = slot.querySelector('.slot-label');
         const slotAdd = slot.querySelector('.slot-add');
         const slotRemove = slot.querySelector('.slot-remove');
         let slotContent = slot.querySelector('.slot-content');
-        
+
         if (slotLabel) slotLabel.style.display = 'none';
         if (slotAdd) slotAdd.style.display = 'none';
         if (slotRemove) slotRemove.style.display = 'flex';
-        
+
         if (slotContent) {
             slotContent.innerHTML = `<img src="${previewUrl}" alt="Imagen">`;
         } else {
@@ -250,11 +250,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function removeSlotImage(slotIndex) {
         // 1. Eliminar del array visual
         selectedImages = selectedImages.filter(img => img.slotIndex !== slotIndex);
-        
+
         // 2. Limpiar el input file real (IMPORTANTE para que no se envíe)
         const slot = imageSlotsGrid.querySelector(`[data-slot-index="${slotIndex}"]`);
         if (!slot) return;
-        
+
         const slotInput = slot.querySelector('.slot-input');
         if (slotInput) slotInput.value = ''; // Esto vacía el archivo seleccionado
 
@@ -263,9 +263,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const slotAdd = slot.querySelector('.slot-add');
         const slotRemove = slot.querySelector('.slot-remove');
         const slotContent = slot.querySelector('.slot-content');
-        
+
         if (slotContent) slotContent.remove();
-        
+
         if (slotIndex === 0) {
             if (slotLabel) slotLabel.style.display = 'flex';
             if (slotRemove) slotRemove.style.display = 'none';
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (slotRemove) slotRemove.style.display = 'none';
         }
-        
+
         hideEmptySlots();
     }
 
@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedImages.forEach(img => {
             if (img.slotIndex > lastImageIndex) lastImageIndex = img.slotIndex;
         });
-        
+
         const nextSlotIndex = lastImageIndex + 1;
         if (nextSlotIndex < MAX_IMAGES) {
             let slot = imageSlotsGrid.querySelector(`[data-slot-index="${nextSlotIndex}"]`);
@@ -319,14 +319,14 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedImages.forEach(img => {
             if (img.slotIndex > lastImageIndex) lastImageIndex = img.slotIndex;
         });
-        
+
         const slotsToHide = lastImageIndex + 2;
         const allSlots = imageSlotsGrid.querySelectorAll('.image-slot');
-        
+
         allSlots.forEach(slot => {
             const slotIndex = parseInt(slot.dataset.slotIndex);
             const hasImage = selectedImages.some(img => img.slotIndex === slotIndex);
-            
+
             if (!hasImage && slotIndex >= slotsToHide) {
                 slot.style.display = 'none';
             } else if (slotIndex < slotsToHide) {
@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        
+
         const centerBtn = document.getElementById('centerMapBtn');
         if (centerBtn) {
             centerBtn.addEventListener('click', () => {
@@ -397,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ENVÍO DEL FORMULARIO (Nativo)
     // ==========================================
     propertyForm.addEventListener('submit', (event) => {
-        
+
         // 1. Validar ubicación (si falla, impedimos el envío)
         if (!document.getElementById('hiddenLat').value || !document.getElementById('hiddenLng').value) {
             event.preventDefault(); // Detenemos el envío
