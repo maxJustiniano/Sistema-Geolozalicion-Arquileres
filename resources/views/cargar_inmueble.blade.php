@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     @vite(['resources/css/cargar_inmueble.css', 'resources/js/cargar_inmueble.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
@@ -23,10 +24,10 @@
     </header>
 
     <main class="publish-wrapper">
-        @error('title')
-            <span class="error-message">{{ $message }}</span>
-        @enderror
         <section class="publish-form-card" id="publishFormCard">
+
+            <x-message.flash-message />
+
             <h2>Información general</h2>
             <form id="propertyForm" class="publish-form" method="POST" action="{{ route('cargar-inmueble.store') }}"
                 enctype="multipart/form-data">

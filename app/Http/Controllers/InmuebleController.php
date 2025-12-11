@@ -37,7 +37,7 @@ class InmuebleController extends Controller
             'groupType' => 'nullable|array',
             'funType' => 'nullable|array',
         ]);
-        
+
         // ===============================================
         // A. LÓGICA DEL USUARIO DEMO
         // ===============================================
@@ -47,26 +47,26 @@ class InmuebleController extends Controller
 
         if (!$propietarioRole) {
             // Manejar error si el rol no existe (crucial para no fallar)
-             return back()->with('error', "Error: El rol 'propietario' no se encontró en la base de datos.");
+            return back()->with('error', "Error: El rol 'propietario' no se encontró en la base de datos.");
         }
         $propietarioRoleId = $propietarioRole->id;
 
         // 2. Crear un usuario dummy si no existe
         $user = User::firstOrCreate(
-            ['email' => 'dummy@geolocalizacion.com'], 
+            ['email' => 'dummy@geolocalizacion.com'],
             [
                 'id_rol' => $propietarioRoleId,
                 'name' => 'Usuario Demo',
                 'password' => bcrypt('password'),
-                'nombre_persona' => 'Demo', 
+                'nombre_persona' => 'Demo',
                 'apellido_persona' => 'Propietario',
             ]
         );
-        
+
         // ===============================================
         // B. CREACIÓN DE LA PROPIEDAD
         // ===============================================
-        
+
         // Mapear los datos de la Request a los campos del modelo Propiedad
         $propiedad = Propiedad::create([
             'id_usuario' => $user->id,
@@ -80,9 +80,9 @@ class InmuebleController extends Controller
             'precio_pesos' => $request->price,
             'numero_habitaciones' => $request->rooms ?? 0,
             'numero_baños' => $request->bathrooms ?? 0,
-            
+
             // Campos booleanos (ejemplo, ajusta según tu formulario si los incluyes)
-            'tiene_patio' => false, 
+            'tiene_patio' => false,
             'amueblado' => false,
             'tiene_parking' => in_array('estacionamiento', $request->facility ?? [])
         ]);
@@ -95,12 +95,12 @@ class InmuebleController extends Controller
             foreach ($request->file('images') as $image) {
                 // Generar nombre único: timestamp_nombreoriginal
                 $nombreArchivo = time() . '_' . Str::slug(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $image->getClientOriginalExtension();
-                
+
                 // Mover a public/img/inmuebles
                 $image->move(public_path('img/inmuebles'), $nombreArchivo);
-                
+
                 $rutaRelativa = 'img/inmuebles/' . $nombreArchivo;
-                
+
                 // Guardar en la tabla imagenes_propiedades usando el modelo
                 $propiedad->imagenes()->create([
                     'url_imagen' => $rutaRelativa,
@@ -108,23 +108,23 @@ class InmuebleController extends Controller
                 ]);
             }
         }
-        
+
         // ===============================================
         // D. PROCESAMIENTO DE FILTROS (Servicios/Amenities)
         // ===============================================
-        
+
         // Recolectar todos los slugs de los filtros seleccionados
         $filtroSlugs = array_merge(
-            $request->facility ?? [], 
-            $request->roomService ?? [], 
-            $request->groupType ?? [], 
+            $request->facility ?? [],
+            $request->roomService ?? [],
+            $request->groupType ?? [],
             $request->funType ?? []
         );
 
         if (!empty($filtroSlugs)) {
             // Buscar los IDs de los filtros por sus slugs (valores de los checkboxes)
             $filtroIds = Filtro::whereIn('slug', $filtroSlugs)->pluck('id')->toArray();
-            
+
             if (!empty($filtroIds)) {
                 // Usar la relación Many-to-Many para adjuntar los filtros
                 // Esto inserta los IDs en la tabla pivote 'filtro_propiedades'
@@ -135,11 +135,9 @@ class InmuebleController extends Controller
         // ===============================================
         // E. RESPUESTA FINAL
         // ===============================================
-        
-        /*
-        return redirect()->route('tu.ruta.de.gracias.o.inicio')
-                         ->with('success', '¡Propiedad cargada correctamente!');
-        */
-        echo 'CARGA EXITOSA';
+
+
+        return redirect()->route('cargar-inmueble')
+            ->with('success', '¡Propiedad "' . $request['titulo'] . '" cargada con éxito!');
     }
 }

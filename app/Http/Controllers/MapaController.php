@@ -12,7 +12,7 @@ class MapaController extends Controller
     {
         // Usamos 'with' para traer todas las relaciones de una sola vez (Eager Loading)
         // Esto evita que la BD haga cientos de consultas.
-        $propiedades = Propiedad::with(['tipoPropiedad', 'tipoEstancia', 'filtros'])->get();
+        $propiedades = Propiedad::with(['tipoPropiedad', 'tipoEstancia', 'filtros','imagenes'])->get();
 
         // Devuelve el JSON formateado
         return PropiedadMapResource::collection($propiedades);

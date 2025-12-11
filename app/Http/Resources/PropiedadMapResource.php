@@ -12,6 +12,11 @@ class PropiedadMapResource extends JsonResource
         // Cargamos los filtros en memoria para clasificarlos
         $filtros = $this->filtros;
 
+        // Lógica para obtener la URL de la primera imagen
+        $firstImage = $this->imagenes->first();
+        $imageUrl = $firstImage ? asset($firstImage->url_imagen) : asset('');
+        // Usamos asset() para generar la URL completa con el dominio.
+
         return [
             'id' => $this->id,
             // Obtenemos el slug de la tabla relacionada (ej: 'casa')
@@ -21,7 +26,10 @@ class PropiedadMapResource extends JsonResource
             'rooms' => $this->numero_habitaciones,
             'bathrooms' => $this->numero_baños,
             'price' => (int) $this->precio_pesos,
-            
+
+            //Imagen
+            'imageUrl' => $imageUrl,
+
             // Booleanos directos de tu tabla
             'hasPatio' => (bool) $this->tiene_patio,
             'hasAmueblado' => (bool) $this->amueblado,

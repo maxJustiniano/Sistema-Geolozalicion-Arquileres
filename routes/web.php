@@ -23,7 +23,7 @@ Route::get('/propiedades-mapa', [MapaController::class, 'index']);
 
 Route::get('/cargar-inmueble', function () {
     return view('cargar_inmueble');
-});
+})->name('cargar-inmueble');
 
 Route::get('/detalle-inmueble', function () {
     return view('detalle_inmueble');

@@ -318,7 +318,7 @@ function addAllMarkers() {
         const popupContent = `
             <div style="font-family: Roboto, sans-serif; max-width: 480px; padding: 5px;">
                 <div style=\"width: 100%; height: 180px; overflow: hidden; border-radius: 10px; background: #f2f2f2; display: flex; align-items: center; justify-content: center;">
-                    <img src=\"https://via.placeholder.com/480x180?text=Foto+de+la+propiedad\" alt=\"Imagen de la propiedad\" style=\"width: 100%; height: 100%; object-fit: cover;" />
+                    <img src=\"${property.imageUrl}" alt=\"Imagen de la propiedad\" style=\"width: 100%; height: 100%; object-fit: cover;" />
                 </div>
                 <b style="display:block; margin-top:10px; font-size: 16px; color: #2196f3;"><i class="fas fa-${iconClass}"></i> ${property.type.toUpperCase()} en ${property.neighborhood}</b>
                 <div style="margin: 8px 0;">
