@@ -42,7 +42,7 @@ class InmuebleController extends Controller
             'rooms' => 'nullable|integer',
             'bathrooms' => 'nullable|integer',
             'typeOfStay' => 'required|integer',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:3072', // Máx 3MB por imagen
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:8192', // Máx 3MB por imagen
             // Para los checkboxes (arrays), ¡ya corregidos en el blade!
             'facility' => 'nullable|array',
             'roomService' => 'nullable|array',

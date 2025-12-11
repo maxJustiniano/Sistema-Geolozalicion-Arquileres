@@ -192,7 +192,7 @@
                 </label>
 
                 <h2>Galería de imágenes</h2>
-                <p class="helper-text">Puedes subir hasta 10 imágenes en formato JPG o PNG (máx. 3MB cada una). La
+                <p class="helper-text">Puedes subir hasta 10 imágenes en formato JPG o PNG (máx. 8MB cada una). La
                     primera imagen será la portada.</p>
                 <div class="image-slots-grid" id="imageSlotsGrid">
 
