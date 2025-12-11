@@ -1,106 +1,157 @@
-    /*
-|--------------------------------------------------------------------------
-| CSS Base y Fuentes (Mantener)
-|--------------------------------------------------------------------------
-| box-sizing ya es el valor predeterminado en Tailwind.
-| Mantenemos la importación y la fuente 'Inter' ya que Tailwind no la define.
-*/
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 * {
-    /* Tailwind ya maneja el font-family con la directiva @layer base */
-    /* Pero puedes forzar 'Inter' si lo necesitas: */
     font-family: 'Inter', sans-serif;
 }
 
-/* |--------------------------------------------------------------------------
-| Colores y Elementos Esenciales (Mantener solo las definiciones de color)
-|--------------------------------------------------------------------------
-| Estas clases son necesarias para definir tus colores personalizados.
-| Luego, usarás bg-gradient-custom, text-primary-custom, etc. en tu HTML.
-|
-| NOTA: Si usas Tailwind v3+, es ALTAMENTE recomendable mover estas 
-| definiciones a tu archivo tailwind.config.js bajo 'extend.colors'.
-*/
-
-/* 🌑 FONDO PRINCIPAL OSCURO (bg-gradient-custom) */
-.bg-gradient-custom {
-    /* Equivalente: linear-gradient(135deg, #18181b 0%, #1f1f21 100%); */
-    background: linear-gradient(135deg, #18181b 0%, #1f1f21 100%); 
+.input-container {
+    background: #ffffff;
+    border: 1.5px solid #d7ecfb;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(33, 150, 243, 0.06);
 }
 
-/* 💳 FONDO DE TARJETA (bg-card-custom) */
-.bg-card-custom {
-    /* Equivalente: #27272a */
-    background: #27272a; 
+flux\:input, input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="search"], input[type="tel"], input[type="url"], input[type="date"], input[type="time"], textarea, select {
+    background: #f9fcff !important;
+    color: #2c3e50 !important;
+    border: 1.6px solid #cfe6fb !important;
+    border-radius: 12px !important;
 }
 
-/* ✏️ TEXTOS PRIMARIOS (text-primary-custom) */
-.text-primary-custom {
-    /* Equivalente: text-white */
-    color: #ffffff; 
+flux\:input:focus-within, input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #2196f3 !important;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.14) !important;
+    background: #ffffff !important;
 }
 
-/* 💬 TEXTOS SECUNDARIOS (text-secondary-custom) */
+::placeholder {
+    color: #78909c !important;
+    opacity: 1 !important;
+}
+
+label, flux\:input label, .flux-input label {
+    color: #2c3e50 !important;
+    font-weight: 600;
+}
+
+flux\:input label,
+flux\:input label span,
+flux\:input label small,
+.flux-input label,
+.flux-input label span,
+.flux-input label small,
+.flux-field label,
+.flux-field label span,
+.flux-field label small,
+form .space-y-4 label,
+form .space-y-4 label span,
+form .grid label,
+form .grid label span,
+label[for],
+label[for] span,
+label[for] small,
+label .text-white,
+.flux-input label .text-white,
+.flux-input label .text-white span,
+.flux-input label .text-white small {
+    color: #0f172a !important;
+}
+
+label,
+label span,
+label small {
+    color: #0f172a !important;
+}
+
+body, .text-primary-custom {
+    color: #0f172a !important;
+}
+
 .text-secondary-custom {
-    /* Equivalente: text-zinc-400 */
-    color: #a1a1aa; 
+    color: #455a64 !important;
 }
 
-/* 🖼️ BORDES Y SEPARADORES (border-custom) */
+.bg-gradient-custom {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 100%);
+    background-image: radial-gradient(circle at 20% 80%, rgba(33, 150, 243, 0.06) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(33, 203, 243, 0.06) 0%, transparent 50%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.bg-card-custom {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35), 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+.text-primary-custom {
+    color: #2c3e50;
+}
+
+.text-secondary-custom {
+    color: #546e7a;
+}
+
 .border-custom {
-    /* Equivalente: border-zinc-600 */
-    border-color: #3f3f46; 
+    border-color: #d7ecfb;
 }
 
-/* 🟦 COLOR AZUL DE ACENTO (Aseguramos el color base) */
 .bg-blue-custom {
-    background-color: #4A90E2;
+    background-color: #2196f3;
 }
 
-/* 💍 COLOR TERRACOTA/AZUL PARA ENLACES (text-terracotta-custom) */
 .text-terracotta-custom {
-    color: #4A90E2; 
+    color: #2196f3;
 }
 
-/* -------------------------------------------------------------------------- */
-/* CLASES DE BOTONES/INPUTS (SIMPLIFICADAS)   */
-/* -------------------------------------------------------------------------- */
-
-/* 🎯 BOTONES PRINCIPALES (btn-primary-custom) */
 .btn-primary-custom {
-    /* Mantener solo la transición y hover si no usas ring/shadow */
-    background-color: #3A7BC8 !important;
-    transition: all 0.2s ease;
-    /* La clase text-white ahora se aplica directamente en el HTML */
-}
-
-/* 🎯 BOTONES PRINCIPALES (btn-primary-custom) */
-.btn-primary-custom {
-    background-color: #1e90ff !important; /* Base azul estándar */
+    background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%) !important;
     transition: all 0.2s ease;
 }
 
 .btn-primary-custom:hover {
-    /* Un azul ligeramente más oscuro al hacer hover */
-    background-color: #187bcd !important; 
+    background: linear-gradient(135deg, #1e88e5 0%, #1fb6e5 100%) !important;
     transform: translateY(-1px);
 }
 
+.btn-secondary-custom {
+    background: #f7fbff;
+    border: 1px solid #d7ecfb;
+    color: #2c3e50 !important;
+    transition: all 0.2s ease;
+}
+
 .btn-secondary-custom:hover {
-    /* Un gris más oscuro al hacer hover */
-    background-color: #3f3f46; 
+    background: #eef7ff;
 }
 
-/* 🖼️ ILUSTRACIÓN (illustration-bg) */
 .illustration-bg {
-    /* Mantenemos el gradiente original */
-    background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%); 
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
 }
 
-/* 🖤 SOMBRA DE LA TARJETA (card-shadow) */
 .card-shadow {
-    /* Mantener sombra custom, es difícil de replicar exactamente con las utilidades de Tailwind */
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 28px rgba(33, 150, 243, 0.12), 0 6px 14px rgba(33, 150, 243, 0.08);
+}
+
+.bg-card-custom label,
+.bg-card-custom label span,
+.bg-card-custom label small,
+.bg-card-custom flux\:input label,
+.bg-card-custom .flux-input label,
+.bg-card-custom .flux-input label span,
+.bg-card-custom .flux-input label small,
+.bg-card-custom .flux-field label,
+.bg-card-custom .flux-field label span,
+.bg-card-custom .flux-field label small {
+    color: #ffffff !important;
+}
+
+.bg-card-custom .text-primary-custom {
+    color: #ffffff !important;
+}
+
+.bg-card-custom .text-secondary-custom {
+    color: rgba(255, 255, 255, 0.85) !important;
 }
