@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Propiedades\Propiedad;
+use App\Models\Propiedad;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,9 +17,9 @@ class Propiedades extends Component
     protected $listeners = ['searchUpdated' => 'applySearch'];
 
     public $nombre_tabla = 'Gestión de Usuarios';
-    public $url_edit='usuarios.edit';
-    public $url_create='usuarios.create';
-    public $url_delet='usuarios.destroy';
+    public $url_edit = 'usuarios.edit';
+    public $url_create = 'usuarios.create';
+    public $url_delet = 'usuarios.destroy';
 
     // Método que actualiza la propiedad y resetea la paginación
     public function applySearch($value)
@@ -31,7 +31,8 @@ class Propiedades extends Component
     // Método que se ejecuta al renderizar el componente
     public function render()
     {
-        $query = Propiedad::orderBy('fecha_publicacion', 'desc');
+        $query = Propiedad::with('imagenes')
+                         ->orderBy('created_at', 'desc');
 
         // Aplicar filtro de búsqueda si $search tiene contenido
         if ($this->search) {
