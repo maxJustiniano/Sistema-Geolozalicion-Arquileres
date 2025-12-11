@@ -1,194 +1,195 @@
-// Datos de propiedades 
-const sampleProperties = [
-    { id: 1, type: 'casa', accommodationType: 'casa_chalet', neighborhood: 'Centro', rooms: 3, bathrooms: 2, price: 8000000, hasPatio: true, hasAmueblado: true, hasParking: true, hasPool: false, petsAllowed: true, lat: -26.1773, lng: -58.1810, reference: 'cerca de Plaza San Martín', description: 'Casa acogedora en el corazón de Formosa.', facility: ['estacionamiento', 'wifi_gratis'], roomService: ['bano_privado', 'cocina', 'aire_acondicionado'], groupType: ['admite_mascotas'] },
-    { id: 3, type: 'terreno', accommodationType: 'alquiler', neighborhood: 'Guadalupe', rooms: 0, bathrooms: 0, price: 3000000, hasPatio: false, hasAmueblado: false, hasParking: false, hasPool: false, petsAllowed: true, lat: -26.1700, lng: -58.1900, reference: 'cerca de Iglesia Guadalupe', description: 'Terreno ideal para construir.', facility: [], roomService: [], groupType: ['admite_mascotas'] },
-    { id: 4, type: 'ph', accommodationType: 'habitacion_particular', neighborhood: 'La Esmeralda', rooms: 1, bathrooms: 1, price: 3500000, hasPatio: true, hasAmueblado: true, hasParking: true, hasPool: false, petsAllowed: true, lat: -26.1820, lng: -58.1680, reference: 'cerca de Parque Libertad', description: 'PH luminoso y renovado.', facility: ['estacionamiento', 'wifi_gratis'], roomService: ['bano_privado', 'cocina'], groupType: ['admite_mascotas', 'solo_adultos'] },
-    { id: 5, type: 'casa', accommodationType: 'casa_chalet', neighborhood: 'Centro', rooms: 4, bathrooms: 3, price: 12000000, hasPatio: true, hasAmueblado: true, hasParking: true, hasPool: true, petsAllowed: false, lat: -26.1750, lng: -58.1850, reference: 'cerca de Plaza San Martín', description: 'Casa familiar con pileta.', facility: ['estacionamiento', 'piscina', 'jacuzzi', 'wifi_gratis'], roomService: ['bano_privado', 'piscina_privada', 'cocina', 'banera_hidromasaje_habitacion', 'sauna', 'chimenea'], groupType: [] },
-    { id: 6, type: 'departamento', accommodationType: 'apartamento', neighborhood: 'San Martín', rooms: 3, bathrooms: 2, price: 6500000, hasPatio: false, hasAmueblado: true, hasParking: true, hasPool: false, petsAllowed: true, lat: -26.1800, lng: -58.1780, reference: 'cerca de Costanera', description: 'Depto espacioso con balcón.', facility: ['estacionamiento', 'gimnasio', 'wifi_gratis'], roomService: ['balcon', 'acceso_ascensor', 'tv_pantalla_plana'], groupType: ['admite_mascotas'] },
-    { id: 7, type: 'terreno', accommodationType: 'alquiler', neighborhood: 'Norte', rooms: 0, bathrooms: 0, price: 4500000, hasPatio: false, hasAmueblado: false, hasParking: false, hasPool: false, petsAllowed: false, lat: -26.1650, lng: -58.1820, reference: 'cerca de Ruta Nacional 11', description: 'Terreno en zona en crecimiento.', facility: [], roomService: [], groupType: [] },
-    { id: 8, type: 'casa', accommodationType: 'cabana', neighborhood: 'Guadalupe', rooms: 2, bathrooms: 1, price: 7000000, hasPatio: true, hasAmueblado: false, hasParking: false, hasPool: false, petsAllowed: true, lat: -26.1720, lng: -58.1880, reference: 'cerca de Iglesia Guadalupe', description: 'Casa sencilla con patio amplio.', facility: ['estacionamiento'], roomService: ['chimenea', 'vistas_montana'], groupType: ['admite_mascotas'] },
-    { id: 9, type: 'ph', accommodationType: 'villa', neighborhood: 'La Esmeralda', rooms: 2, bathrooms: 2, price: 5500000, hasPatio: false, hasAmueblado: true, hasParking: true, hasPool: true, petsAllowed: false, lat: -26.1840, lng: -58.1700, reference: 'cerca de Parque Libertad', description: 'PH con pileta compartida.', facility: ['piscina', 'jacuzzi', 'spa_bienestar', 'wifi_gratis'], roomService: ['banera_hidromasaje_habitacion', 'sauna', 'vistas'], groupType: ['solo_adultos'] },
-    { id: 10, type: 'departamento', accommodationType: 'apartamento', neighborhood: 'Sur', rooms: 1, bathrooms: 1, price: 4000000, hasPatio: true, hasAmueblado: true, hasParking: false, hasPool: false, petsAllowed: true, lat: -26.1900, lng: -58.1800, reference: 'cerca de Terminal de Ómnibus', description: 'Depto céntrico y accesible.', facility: ['restaurante', 'servicio_habitaciones'], roomService: ['bano_privado', 'tv_pantalla_plana'], groupType: ['admite_mascotas'] },
-    { id: 11, type: 'casa', accommodationType: 'casa_chalet', neighborhood: 'Eva Perón', rooms: 3, bathrooms: 2, price: 8900000, hasPatio: true, hasAmueblado: false, hasParking: true, hasPool: false, petsAllowed: true, lat: -26.1885, lng: -58.1672, reference: 'cerca del Hospital Central', description: 'Casa cómoda con patio y cochera cubierta.', facility: ['estacionamiento'], roomService: ['bano_privado', 'cocina'], groupType: [] },
-    { id: 12, type: 'departamento', accommodationType: 'apartamento', neighborhood: 'Centro', rooms: 2, bathrooms: 1, price: 6200000, hasPatio: false, hasAmueblado: true, hasParking: false, hasPool: false, petsAllowed: false, lat: -26.1832, lng: -58.1768, reference: 'a 2 cuadras de la Plaza San Martín', description: 'Departamento amoblado listo para habitar.', facility: ['wifi_gratis', 'recepcion_24_horas'], roomService: ['balcon', 'tv_pantalla_plana'], groupType: [] },
-    { id: 14, type: 'casa', accommodationType: 'villa', neighborhood: 'La Pilar', rooms: 4, bathrooms: 3, price: 14500000, hasPatio: true, hasAmueblado: true, hasParking: true, hasPool: true, petsAllowed: false, lat: -26.1656, lng: -58.1965, reference: 'zona residencial tranquila', description: 'Villa amplia con jardín y pileta.', facility: ['piscina', 'estacionamiento', 'jacuzzi'], roomService: ['piscina_privada', 'sauna'], groupType: [] },
-    { id: 15, type: 'terreno', accommodationType: 'alquiler', neighborhood: 'Virgen del Carmen', rooms: 0, bathrooms: 0, price: 3600000, hasPatio: false, hasAmueblado: false, hasParking: false, hasPool: false, petsAllowed: false, lat: -26.1959, lng: -58.1705, reference: 'cercano a Ruta 11', description: 'Terreno nivelado listo para construir.', facility: [], roomService: [], groupType: [] }
-];
-
-// Mapeo de tipos de propiedad
-const propertyTypeLabels = {
-    'apartamento': 'Departamento',
-    'casa_chalet': 'Casa / Chalet',
-    'habitacion_particular': 'Habitación Particular',
-    'alquiler': 'Terreno / Alquiler',
-    'villa': 'Villa',
-    'cabana': 'Cabaña',
-    'albergue': 'Albergue',
-    'hotel': 'Hotel',
-    'residencial': 'Residencial',
-    'camping': 'Camping'
-};
-
-// Mapeo de servicios
-const serviceLabels = {
-    // Instalaciones
-    'estacionamiento': 'Estacionamiento',
-    'restaurante': 'Restaurante',
-    'servicio_habitaciones': 'Servicio de habitaciones',
-    'recepcion_24_horas': 'Recepción 24 horas',
-    'gimnasio': 'Gimnasio',
-    'traslado_aeropuerto': 'Traslado aeropuerto',
-    'spa_bienestar': 'Spa y centro de bienestar',
-    'banera_hidromasaje': 'Bañera hidromasaje',
-    'jacuzzi': 'Jacuzzi',
-    'wifi_gratis': 'Wifi Gratis',
-    'estacion_carga_vehiculos_electricos': 'Estación de carga de vehículos eléctricos',
-    'adaptado_sillas_ruedas': 'Adaptado para sillas de ruedas',
-    'piscina': 'Piscina',
-    // Servicios de habitación
-    'bano_privado': 'Baño privado',
-    'piscina_privada': 'Piscina privada',
-    'balcon': 'Balcón',
-    'aire_acondicionado': 'Aire acondicionado',
-    'cocina': 'Cocina',
-    'banera_hidromasaje_habitacion': 'Bañera de hidromasaje',
-    'vistas': 'Vistas',
-    'banera': 'Bañera',
-    'sauna': 'Sauna',
-    'chimenea': 'Chimenea',
-    'vistas_montana': 'Vistas a la montaña',
-    'acceso_ascensor': 'Acceso a pisos superiores en ascensor',
-    'tv_pantalla_plana': 'TV de pantalla plana',
-    // Tipo de grupo
-    'admite_mascotas': 'Admite mascotas',
-    'solo_adultos': 'Solo para adultos',
-    // Para pasarlo bien
-    'sala_juegos': 'Sala de juegos',
-    'cine': 'Cine'
-};
-
+// Variables globales para almacenar los datos dinámicos
 let currentProperty = null;
-let currentImageIndex = 0;
 let propertyImages = [];
+let currentImageIndex = 0;
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Obtener ID de la propiedad desde la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const propertyId = parseInt(urlParams.get('id'));
-    
-    if (!propertyId) {
-        alert('Propiedad no encontrada');
-        window.location.href = 'index.html';
-        return;
-    }
-    
-    // Buscar la propiedad
-    currentProperty = sampleProperties.find(p => p.id === propertyId);
-    
-    if (!currentProperty) {
-        alert('Propiedad no encontrada');
-        window.location.href = 'index.html';
-        return;
-    }
-    
-    // Cargar datos de la propiedad
-    loadPropertyData();
-    initImageGallery();
-    initMap();
-});
+// ==========================================
+// FUNCIONES DE UTILIDAD
+// ==========================================
 
-function formatPrice(price) {
-    return new Intl.NumberFormat('es-AR').format(price);
+/**
+ * Formatea un número como moneda ARS.
+ * @param {number} num - Precio.
+ * @returns {string} Precio formateado.
+ */
+function formatPrice(num) {
+    const formatter = new Intl.NumberFormat('es-AR', {
+        style: 'decimal',
+        currency: 'ARS',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    });
+    return formatter.format(num);
 }
 
-function loadPropertyData() {
-    const prop = currentProperty;
+/**
+ * Mapea el slug del filtro a un nombre legible. 
+ * (Asumimos que esta función existe o tienes un mapeo en tu JS/Blade)
+ */
+function getSpanishName(slug) {
+    // Ejemplo de mapeo (debes completar con todos tus slugs)
+    const namesMap = {
+        'casa': 'Casa',
+        'departamento': 'Departamento',
+        'casa_chalet': 'Casa / Chalet',
+        'alquiler': 'Alquiler',
+        'estacionamiento': 'Estacionamiento',
+        'wifi_gratis': 'WiFi Gratis',
+        'bano_privado': 'Baño Privado',
+        'cocina': 'Cocina',
+        'admite_mascotas': 'Admite Mascotas',
+        'piscina': 'Piscina',
+        // Añadir todos los slugs de tu FiltroSeeder
+    };
+    return namesMap[slug] || slug.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+/**
+ * Renderiza la lista de servicios/filtros.
+ * @param {string[]} services - Array de slugs (ej: ['wifi_gratis']).
+ * @param {string} elementId - ID del contenedor (ej: 'facilitiesList').
+ */
+function renderServices(services, elementId) {
+    const container = document.getElementById(elementId);
+    if (!container || !services || services.length === 0) {
+        // Ocultar la sección si no hay servicios para esa categoría
+        const section = container ? container.closest('.service-category') : null;
+        if (section) section.classList.add('hidden');
+        return;
+    }
     
-    // Título
-    const typeLabel = propertyTypeLabels[prop.accommodationType] || prop.type;
-    document.getElementById('propertyTitle').textContent = `${typeLabel} en ${prop.neighborhood}`;
+    // Asegurarse de que la sección esté visible
+    const section = container.closest('.service-category');
+    if (section) section.classList.remove('hidden');
+
+    container.innerHTML = services.map(slug => `
+        <div class="service-item">
+            <i class="fas fa-check-circle"></i> ${getSpanishName(slug)}
+        </div>
+    `).join('');
+}
+
+
+// ==========================================
+// LÓGICA DE DATOS: FETCH Y BÚSQUEDA
+// ==========================================
+
+/**
+ * Carga la lista completa de propiedades desde el API y busca la propiedad actual.
+ * @param {number} id - ID de la propiedad a buscar.
+ */
+async function loadPropertyDetails(id) {
+    if (!id) {
+        document.querySelector('.detail-container').innerHTML = 
+            '<h2>Error</h2><p>El ID de la propiedad no fue inyectado correctamente desde el servidor.</p>';
+        return;
+    }
+
+    try {
+        // 1. Fetch al endpoint del mapa que devuelve todas las propiedades
+        const response = await fetch('/propiedades-mapa'); 
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        
+        const json = await response.json(); 
+        const allProperties = json.data || []; // Array de propiedades
+        
+        // 2. BUSCAR la propiedad específica por ID
+        const prop = allProperties.find(p => p.id == id); 
+
+        if (!prop) {
+            console.error(`Propiedad con ID ${id} no encontrada.`);
+            document.querySelector('.detail-container').innerHTML = 
+                '<h2>Propiedad No Encontrada</h2><p>El inmueble solicitado no está disponible.</p>';
+            return;
+        }
+        
+        // 3. Almacenar y procesar los datos
+        currentProperty = prop;
+        
+        // El PropiedadMapResource solo devuelve 'imageUrl', por lo que solo tenemos una imagen.
+        // Si quieres más, debes modificar el Resource para incluir 'allImages'.
+        // 3. Almacenar y procesar los datos
+        currentProperty = prop;
+        
+        // **********************************************
+        // 🚨 CAMBIO CLAVE AQUÍ: Usar el array completo
+        // **********************************************
+        propertyImages = prop.allImages || []; // Usar el array 'allImages' del JSON
+        
+        // Si por alguna razón allImages está vacío, pero imageUrl existe, úsala como fallback
+        if (propertyImages.length === 0 && prop.imageUrl) {
+            propertyImages = [prop.imageUrl];
+        }
+        
+        // 4. Inicializar la interfaz con los datos cargados
+        initPropertyDetail(currentProperty);
+        
+
+    } catch (error) {
+        console.error("Fallo al cargar los detalles de la propiedad:", error);
+        document.querySelector('.detail-container').innerHTML = 
+            `<h2>Error de Conexión</h2><p>Hubo un problema al cargar la información: ${error.message}</p>`;
+    }
+}
+
+
+// ==========================================
+// LÓGICA DE INICIALIZACIÓN DE UI
+// ==========================================
+
+function initPropertyDetail(prop) {
+    // 1. Rellena los datos principales
+    document.getElementById('propertyTitle').textContent = prop.title || prop.type.toUpperCase();
+    document.getElementById('propertyAccommodation').textContent = `${getSpanishName(prop.type)} en ${getSpanishName(prop.accommodationType)}`;
+    document.getElementById('propertyPrice').textContent = formatPrice(prop.price);
+    document.getElementById('propertyType').textContent = prop.type;//
     
-    // Ubicación
+    // Rellena la tabla de características
+    document.getElementById('propertyRooms').textContent = prop.rooms;
+    document.getElementById('propertyBathrooms').textContent = prop.bathrooms;
     document.getElementById('propertyNeighborhood').textContent = prop.neighborhood;
-    document.getElementById('propertyReference').textContent = prop.reference;
     
-    // Detalles
-    document.getElementById('propertyType').textContent = typeLabel;
-    document.getElementById('propertyRooms').textContent = prop.rooms || '0';
-    document.getElementById('propertyBathrooms').textContent = prop.bathrooms || '0';
-    document.getElementById('propertyPrice').textContent = `${formatPrice(prop.price)} ARS`;
-    
-    // Descripción
+    // Rellena la descripción
     document.getElementById('propertyDescription').textContent = prop.description;
     
-    // Servicios
-    renderServices('facilitiesList', prop.facility || [], 'facilitiesSection');
-    renderServices('roomServicesList', prop.roomService || [], 'roomServicesSection');
-    renderServices('groupTypesList', prop.groupType || [], 'groupTypesSection');
-    
-    // Para pasarlo bien 
-    const funTypes = [];
-    if (prop.facility) {
-        if (prop.facility.includes('piscina')) funTypes.push('piscina');
-        if (prop.facility.includes('sala_juegos')) funTypes.push('sala_juegos');
-        if (prop.facility.includes('cine')) funTypes.push('cine');
-    }
-    if (prop.roomService) {
-        if (prop.roomService.includes('piscina_privada')) funTypes.push('piscina');
-    }
-    renderServices('funTypesList', funTypes, 'funTypesSection');
-    
-    // Coordenadas
-    document.getElementById('displayLat').textContent = prop.lat.toFixed(6);
-    document.getElementById('displayLng').textContent = prop.lng.toFixed(6);
-}
+    // Rellena las características booleanas (ESTOS ERAN LOS ID FALTANTES EN EL HTML)
+    document.getElementById('hasPatio').textContent = prop.hasPatio ? 'Sí' : 'No';
+    document.getElementById('hasParking').textContent = prop.hasParking ? 'Sí' : 'No';
+    document.getElementById('amueblado').textContent = prop.hasAmueblado ? 'Sí' : 'No';
 
-function renderServices(containerId, services, sectionId) {
-    const container = document.getElementById(containerId);
-    const section = document.getElementById(sectionId);
-    
-    if (!services || services.length === 0) {
-        container.innerHTML = '<div class="service-empty">No especificado</div>';
-        return;
-    }
-    
-    container.innerHTML = services.map(service => {
-        const label = serviceLabels[service] || service;
-        return `
-            <div class="service-item">
-                <i class="fas fa-check-circle"></i>
-                <span>${label}</span>
-            </div>
-        `;
-    }).join('');
-}
-
-function initImageGallery() {
-    // Generar imágenes de ejemplo
-    propertyImages = [
-        'https://via.placeholder.com/800x450?text=Imagen+1',
-        'https://via.placeholder.com/800x450?text=Imagen+2',
-        'https://via.placeholder.com/800x450?text=Imagen+3',
-        'https://via.placeholder.com/800x450?text=Imagen+4'
-    ];
-    
-    // Mostrar primera imagen
+    // 2. Inicializar galería
     if (propertyImages.length > 0) {
-        document.getElementById('mainImage').src = propertyImages[0];
-        renderThumbnails();
+        // La primera imagen se carga automáticamente
+        updateMainImage(); 
+        // Si propertyImages tiene más de 1 elemento, renderiza las miniaturas
+        if (propertyImages.length > 1) {
+            renderThumbnails(); 
+        } else {
+            // Ocultar botones de navegación si solo hay una imagen
+            document.getElementById('prevImageBtn').classList.add('hidden');
+            document.getElementById('nextImageBtn').classList.add('hidden');
+            document.getElementById('thumbnailGrid').classList.add('hidden');
+        }
+    } else {
+        // Imagen por defecto si no hay ninguna
+        document.getElementById('mainImage').src = '/img/default-image.jpg'; 
     }
     
-    // Event listeners para navegación
-    document.getElementById('prevImageBtn').addEventListener('click', () => {
-        currentImageIndex = (currentImageIndex - 1 + propertyImages.length) % propertyImages.length;
-        updateMainImage();
-    });
+    // 3. Inicializar servicios y mapa
+    renderServices(prop.facility, 'facilitiesList');
+    renderServices(prop.roomService, 'roomServicesList');
+    renderServices(prop.groupType, 'groupTypesList');
+    renderServices(prop.funType, 'funTypesList');
     
-    document.getElementById('nextImageBtn').addEventListener('click', () => {
-        currentImageIndex = (currentImageIndex + 1) % propertyImages.length;
-        updateMainImage();
-    });
+    initMap(); 
 }
+
+// ==========================================
+// LÓGICA DE GALERÍA DE IMÁGENES
+// ==========================================
 
 function renderThumbnails() {
     const container = document.getElementById('thumbnailGrid');
@@ -209,11 +210,40 @@ function renderThumbnails() {
 
 function updateMainImage() {
     document.getElementById('mainImage').src = propertyImages[currentImageIndex];
-    renderThumbnails();
+    renderThumbnails(); // Para actualizar el borde activo
 }
+
+function navigateImages(direction) {
+    if (propertyImages.length <= 1) return;
+
+    let newIndex = currentImageIndex + direction;
+    if (newIndex < 0) {
+        newIndex = propertyImages.length - 1;
+    } else if (newIndex >= propertyImages.length) {
+        newIndex = 0;
+    }
+    currentImageIndex = newIndex;
+    updateMainImage();
+}
+
+// ==========================================
+// LÓGICA DEL MAPA (Leaflet)
+// ==========================================
 
 function initMap() {
     const prop = currentProperty;
+    if (!prop || !prop.lat || !prop.lng) {
+        console.error("Coordenadas no válidas para el mapa.");
+        document.getElementById('propertyMap').innerHTML = 
+            '<p>Ubicación no disponible.</p>';
+        return;
+    }
+
+    // Asegurarse de que el mapa se inicialice una sola vez
+    if (document.getElementById('propertyMap')._leaflet_id) {
+        document.getElementById('propertyMap')._leaflet_id = null;
+    }
+    
     const propertyMap = L.map('propertyMap', {
         zoomControl: true,
         scrollWheelZoom: true
@@ -225,12 +255,46 @@ function initMap() {
         attribution: '© IGN Argentina'
     }).addTo(propertyMap);
     
-    // Agregar marcador
+    // Agregar marcador (Usamos el pin personalizado si lo tienes)
     L.marker([prop.lat, prop.lng], {
         icon: L.icon({
             iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/images/marker-icon.png',
             iconSize: [25, 41],
-            iconAnchor: [12, 41]
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/images/marker-shadow.png',
+            shadowSize: [41, 41]
         })
-    }).addTo(propertyMap).bindPopup(`<strong>${prop.neighborhood}</strong><br>${prop.reference}`);
+    }).addTo(propertyMap);
+
+    // Mostrar las coordenadas
+    document.getElementById('displayLat').textContent = prop.lat.toFixed(6);
+    document.getElementById('displayLng').textContent = prop.lng.toFixed(6);
 }
+
+
+// ==========================================
+// INICIALIZACIÓN GLOBAL
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Agregar event listeners para la navegación de imágenes
+    const prevBtn = document.getElementById('prevImageBtn');
+    const nextBtn = document.getElementById('nextImageBtn');
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => navigateImages(-1));
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => navigateImages(1));
+    }
+
+    // 🚨 LLAMADA PRINCIPAL: Usar la variable inyectada desde Blade
+    if (typeof PROPERTY_ID !== 'undefined' && PROPERTY_ID !== null) {
+        loadPropertyDetails(PROPERTY_ID);
+    } else {
+        console.error("Error: PROPERTY_ID global no definido o nulo.");
+        document.querySelector('.detail-container').innerHTML = 
+            '<h2>Error de Carga</h2><p>No se pudo determinar la propiedad a cargar.</p>';
+    }
+});

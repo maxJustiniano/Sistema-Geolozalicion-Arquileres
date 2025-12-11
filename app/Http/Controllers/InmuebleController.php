@@ -12,6 +12,18 @@ use App\Models\User; // Asumo que tienes este modelo para el usuario demo
 
 class InmuebleController extends Controller
 {
+    public function show(Propiedad $propiedad) 
+    {
+        // El Model Binding de Laravel (Propiedad $propiedad) se encarga de:
+        // 1. Encontrar la propiedad basada en el valor de la URL (ej: /inmueble/1).
+        // 2. Si la propiedad no existe, Laravel lanza automáticamente un error 404.
+        
+        // Pasamos el objeto $propiedad a la vista 'detalle_inmueble'
+        return view('detalle_inmueble', [
+            'propiedad' => $propiedad
+        ]);
+    }
+
     public function store(Request $request)
     {
         // 1. Limpieza del precio (quitar puntos de miles para que sea numérico)

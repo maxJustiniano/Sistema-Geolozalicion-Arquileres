@@ -107,3 +107,8 @@ Route::middleware('check_user_type:3')->group(function () {
 
 use App\Http\Controllers\InmuebleController;
 Route::post('/cargar-inmueble', [InmuebleController::class, 'store'])->name('cargar-inmueble.store');
+
+// Ruta para ver el detalle de una propiedad.
+// {propiedad} le indica a Laravel que use el Propiedad Model Binding.
+Route::get('/inmueble/{propiedad}', [InmuebleController::class, 'show'])
+    ->name('inmueble.show');

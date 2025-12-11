@@ -16,6 +16,7 @@ class PropiedadMapResource extends JsonResource
         $firstImage = $this->imagenes->first();
         $imageUrl = $firstImage ? asset($firstImage->url_imagen) : asset('');
         // Usamos asset() para generar la URL completa con el dominio.
+        
 
         return [
             'id' => $this->id,
@@ -29,6 +30,11 @@ class PropiedadMapResource extends JsonResource
 
             //Imagen
             'imageUrl' => $imageUrl,
+            'allImages' => $this->whenLoaded('imagenes', function () {
+                return $this->imagenes->map(function ($imagen) {
+                    return asset($imagen->url_imagen);
+                })->toArray();
+            }),
 
             // Booleanos directos de tu tabla
             'hasPatio' => (bool) $this->tiene_patio,

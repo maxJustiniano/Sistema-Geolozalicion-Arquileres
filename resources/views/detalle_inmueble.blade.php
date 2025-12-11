@@ -17,7 +17,6 @@
 
     <main class="detail-wrapper">
         <div class="detail-container">
-            <!-- Galería de imágenes -->
             <section class="image-gallery-section">
                 <div class="main-image-container" id="mainImageContainer">
                     <img id="mainImage" src="" alt="Imagen principal" />
@@ -25,11 +24,9 @@
                     <button class="image-nav-btn next-btn" id="nextImageBtn"><i class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="thumbnail-grid" id="thumbnailGrid">
-                    <!-- Las miniaturas se generan dinámicamente -->
-                </div>
+                    </div>
             </section>
 
-            <!-- Información principal -->
             <section class="property-info-section">
                 <div class="info-header">
                     <h2 id="propertyTitle">Cargando...</h2>
@@ -49,6 +46,13 @@
                         </div>
                     </div>
                     <div class="detail-item">
+                        <i class="fas fa-door-open"></i> 
+                        <div>
+                            <span class="detail-label">Alojamiento</span>
+                            <span class="detail-value" id="propertyAccommodation">-</span> 
+                        </div>
+                    </div>
+                    <div class="detail-item">
                         <i class="fas fa-bed"></i>
                         <div>
                             <span class="detail-label">Habitaciones</span>
@@ -60,6 +64,28 @@
                         <div>
                             <span class="detail-label">Baños</span>
                             <span class="detail-value" id="propertyBathrooms">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <i class="fas fa-tree"></i> 
+                        <div>
+                            <span class="detail-label">Patio/Jardín</span>
+                            <span class="detail-value" id="hasPatio">-</span> 
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-car"></i> 
+                        <div>
+                            <span class="detail-label">Estacionamiento</span>
+                            <span class="detail-value" id="hasParking">-</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-couch"></i> 
+                        <div>
+                            <span class="detail-label">Amueblado</span>
+                            <span class="detail-value" id="amueblado">-</span>
                         </div>
                     </div>
                     <div class="detail-item price-item">
@@ -76,7 +102,6 @@
                     <p id="propertyDescription">-</p>
                 </div>
 
-                <!-- Servicios e Instalaciones -->
                 <div class="services-section">
                     <div class="services-grid">
                         <div class="service-category" id="facilitiesSection">
@@ -98,7 +123,6 @@
                     </div>
                 </div>
 
-                <!-- Mapa de ubicación -->
                 <div class="map-section">
                     <h3><i class="fas fa-map"></i> Ubicación</h3>
                     <div id="propertyMap" class="property-map"></div>
@@ -111,6 +135,11 @@
         </div>
     </main>
 
+    <script>
+        // Esta variable global contendrá el ID de la propiedad que estamos viendo
+        const PROPERTY_ID = {{ Js::from($propiedad->id ?? null) }};
+        // Usamos Js::from() para inyectar la variable de Laravel de forma segura.
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js"></script>
 </body>
 </html>

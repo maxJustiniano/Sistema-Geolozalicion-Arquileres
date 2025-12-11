@@ -335,7 +335,7 @@ function addAllMarkers() {
                     <i class="fas fa-map-marker-alt"></i> ${property.reference}
                 </div>
                 <div style="margin-top: 10px;">
-                    <a href=\"/detalle-inmueble?id=${property.id}\" style=\"color: #1976d2; font-weight: 600; text-decoration: none;\">Más información…</a>
+                    <a href=\"/inmueble/${property.id}\" style=\"color: #1976d2; font-weight: 600; text-decoration: none;\">Más información…</a>
                 </div>
             </div>
         `;
