@@ -13,9 +13,26 @@
 </head>
 
 <body>
+
+    {{-- LÓGICA PARA EL ENLACE "VOLVER" --}}
+    @php
+        // 1. Define la URL de fallback (tu página principal del mapa). 
+        // ¡Asegúrate de que 'mapa.index' esté definida en tus rutas de Laravel!
+        $fallbackRoute = route('mapa'); 
+
+        // 2. Obtiene la URL anterior y la actual.
+        $previousUrl = url()->previous();
+        $currentUrl = url()->current();
+
+        // 3. Determina la URL de destino: 
+        // Si la URL anterior es diferente a la URL actual, usa la anterior.
+        // Si son iguales (evitando el bucle), usa la ruta de fallback ('mapa.index').
+        $backUrl = ($previousUrl != $currentUrl) ? $previousUrl : $fallbackRoute;
+    @endphp
+
     <header class="publish-header">
         <div class="header-left">
-            <a href="{{ url()->previous() }}" class="back-link"><i class="fas fa-arrow-left"></i> Volver al mapa</a>
+            <a href="{{ $backUrl }}" class="back-link"><i class="fas fa-arrow-left"></i> Volver al mapa</a>
         </div>
         <div class="header-center-title">
             <span class="header-title-text">Sube tu propiedad</span>

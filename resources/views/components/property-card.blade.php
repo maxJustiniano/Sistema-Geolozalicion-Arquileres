@@ -39,14 +39,7 @@
     Ver Propiedad
 </a>
             
-            {{-- Botón Reservar (Principal - Acento Cyan) --}}
-            <button
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center 
-                       text-white bg-cyan-600 rounded-lg 
-                       hover:bg-cyan-700 focus:ring-4 focus:outline-none focus:ring-cyan-300 
-                       dark:bg-cyan-500 dark:hover:bg-cyan-600 dark:focus:ring-cyan-800">
-                Reservar
-            </button>
+
         </div>
     </div>
 </div>

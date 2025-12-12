@@ -8,7 +8,7 @@
 <div id="sidebar">
     <h2><i class="fas fa-filter"></i> Filtros Avanzados</h2>
     
-    <div class="filter-card collapsible">
+    <div class="filter-card collapsible collapsed">
         <h3 class="filter-title"><i class="fas fa-home"></i> Tipo de Alojamiento <i class="fas fa-chevron-down"></i></h3>
         <div class="filter-content">
             <label class="checkbox-label"><input type="checkbox" class="accommodation-type" value="apartamento"> Apartamentos</label>

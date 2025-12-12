@@ -14,11 +14,16 @@
 <nav class="bg-white border-b border-gray-200 shadow-sm">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 
+
+        
         {{-- 1. Logo y Título --}}
-        <a href="{{ route('info') }}" class="flex items-center space-x-2 rtl:space-x-reverse md:order-1">
-            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-            <span class="self-center text-xl font-bold tracking-tight whitespace-nowrap text-gray-900">Propiedades Formosa</span>
-        </a>
+<a href="{{ route('info') }}" class="flex items-center space-x-2 rtl:space-x-reverse md:order-1">
+    
+    <svg class="h-8 w-8 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
+    </svg>
+    <span class="self-center text-xl font-bold tracking-tight whitespace-nowrap text-gray-900">Propiedades Formosa</span>
+</a>
 
         {{-- 2. Botones de Autenticación (Derecha) --}}
         @if (Route::has('login'))
